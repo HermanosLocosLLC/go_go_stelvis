@@ -4,7 +4,7 @@ import userRouter from './user-routes'
 
 const router = express.Router()
 
-router.use('/v-auth', authRouter)
+router.use('/auth', authRouter)
 router.use('/user', userRouter)
 
 export default router

@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./src/server.ts",
+    "dev": "NODE_ENV=development nodemon",
     "build": "tsc",
-    "start": "node ./dist/server.js",
-    "test": "jest --watchAll --no-cache"
+    "start": "NODE_ENV=production node ./dist/server.js",
+    "test": "NODE_ENV=testing jest --watchAll --no-cache"
   },
   "jest": {
     "preset": "ts-jest",
@@ -21,15 +21,18 @@
   "description": "",
   "dependencies": {
     "axios": "^1.6.8",
+    "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-async-errors": "^3.1.1",
+    "googleapis": "^136.0.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.3"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/cookie-parser": "^1.4.7",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",

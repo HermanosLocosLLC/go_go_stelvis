@@ -6,7 +6,7 @@ import { app } from '../../../app'
 // TODO//
 it('test', async () => {
   const response = await request(app)
-    .post('/api/v1/v-auth/logout')
+    .post('/api/v1/auth/logout')
     .send()
     .expect(200)
 

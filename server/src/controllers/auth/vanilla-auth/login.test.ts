@@ -53,7 +53,7 @@ it('fails if either email or password are not provided', async () => {
 // 4) Succeeds if username and password match a user in the database
 it('Users has correct password', async () => {
   await request(app)
-    .post('/api/v1/v-auth/login')
+    .post('/api/v1/auth/gogo/login')
     .send({
       email: 'test@test.com',
       password: 'test123',
@@ -61,7 +61,7 @@ it('Users has correct password', async () => {
     .expect(200)
 
   const response = await request(app)
-    .post('/api/v1/v-auth/login')
+    .post('/api/v1/auth/gogo/login')
     .send({
       email: 'test@test.com',
       password: 'test123',
