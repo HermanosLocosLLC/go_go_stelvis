@@ -20,9 +20,10 @@ const LandingPage = (props: Props) => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!email || !password) return
+    const endpoint = login ? 'login' : 'signup'
 
     try {
-      const response = await vAuthFetch.post('/', {
+      const response = await vAuthFetch.post(`/${endpoint}`, {
         email,
         password,
       })

@@ -1,0 +1,13 @@
+{
+  "name": "go_go_stelvis",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev:client": "cd client && npm run dev",
+    "dev:server": "cd server && npm run dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

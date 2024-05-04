@@ -7,11 +7,18 @@ import cors from 'cors'
 import apiRouter from './routes'
 import { errorHandler } from './middlewares/error-handler'
 import { NotFoundError } from './errors/not-found-error'
+import cookieParser from 'cookie-parser'
 
 const app = express()
 
+app.use(
+  cors({
+    credentials: true,
+    origin: 'http://localhost:5150',
+  }),
+)
 app.use(express.json())
-app.use(cors())
+app.use(cookieParser())
 
 // ROUTE FOR SERVING FRONT END
 app.use('/', express.static(path.join(__dirname, '/../client/dist')))
