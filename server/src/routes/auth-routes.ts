@@ -3,8 +3,8 @@ import { login, logout, signup } from '../controllers/auth/vanilla-auth'
 
 const router = express.Router()
 
-router.get('/login', login)
-router.get('/signup', signup)
-router.get('/logout', logout)
+router.post('/login', login)
+router.post('/signup', signup)
+router.post('/logout', logout)
 
 export default router
