@@ -1,0 +1,59 @@
+@mixin media-xs {
+  @media screen and (min-width: 1px) {
+    @content;
+  }
+}
+
+@mixin media-sm {
+  @media screen and (min-width: 340px) and (min-height: 551px) {
+    @content;
+  }
+}
+
+@mixin media-sm-short {
+  @media screen and (min-width: 360px) and (max-width: 400px) and (max-height: 550px) {
+    @content;
+  }
+}
+
+@mixin media-sm-landscape {
+  @media screen and (orientation: landscape) and (min-width: 340px) {
+    @content;
+  }
+}
+
+@mixin media-rg {
+  @media screen and (min-width: 429px) {
+    @content;
+  }
+}
+
+@mixin media-md {
+  @media screen and (min-width: 744px) {
+    @content;
+  }
+}
+
+@mixin media-md-landscape {
+  @media screen and (orientation: landscape) and (min-width: 744px) {
+    @content;
+  }
+}
+
+@mixin media-lg {
+  @media screen and (min-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin media-lg-landscape {
+  @media screen and (orientation: landscape) and (min-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin media-xl {
+  @media screen and (min-width: 1600px) {
+    @content;
+  }
+}

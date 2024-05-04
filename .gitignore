@@ -103,3 +103,6 @@ utilities/client.json
 # Cypress artifacts
 cypress/screenshots/
 cypress/videos/
+
+# artwork
+.design
