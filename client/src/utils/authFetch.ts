@@ -1,11 +1,11 @@
 import axios, { AxiosError } from 'axios'
 
-const vAuthFetch = axios.create({
-  baseURL: 'http://localhost:3000/api/v1/v-auth',
+const authFetch = axios.create({
+  baseURL: 'http://localhost:3000/api/v1/auth',
   withCredentials: true,
 })
 
-vAuthFetch.interceptors.response.use(
+authFetch.interceptors.response.use(
   (response) => {
     return response
   },
@@ -20,4 +20,4 @@ vAuthFetch.interceptors.response.use(
   },
 )
 
-export { vAuthFetch }
+export { authFetch }
