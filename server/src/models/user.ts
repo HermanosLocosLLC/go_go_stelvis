@@ -8,13 +8,19 @@ interface UserAttrs {
   firstName: string
   lastName: string
   email: string
-  password: string
+  password?: string
+  pfp: string | null
+  userType: 'gogo' | 'google' | 'facebook' | 'discord'
+  accessToken?: string
+  refreshToken?: string
 }
 
 // An interface that describes the properties
 // that a User Model has
 interface UserModel extends mongoose.Model<UserDoc> {
   build(attrs: UserAttrs): UserDoc
+  createJwt(): string
+  comparePassword(providedPassword: string): boolean
 }
 
 // An interface that describes the properties
@@ -23,7 +29,12 @@ interface UserDoc extends mongoose.Document {
   firstName: string
   lastName: string
   email: string
-  password: string
+  password?: string
+  userType: 'gogo' | 'google' | 'facebook' | 'discord'
+  accessToken?: string
+  refreshToken?: string
+  createJwt(): string
+  comparePassword(providedPassword: string): boolean
 }
 
 const userSchema = new mongoose.Schema(
@@ -40,9 +51,22 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    pfp: {
+      type: String,
+    },
     password: {
       type: String,
+    },
+    userType: {
+      type: String,
+      enum: ['gogo', 'google', 'facebook', 'discord'],
       required: true,
+    },
+    accessToken: {
+      type: String,
+    },
+    refreshToken: {
+      type: String,
     },
   },
   {
@@ -51,6 +75,8 @@ const userSchema = new mongoose.Schema(
         ret.id = ret._id
         delete ret._id
         delete ret.password
+        delete ret.accessToken
+        delete ret.refreshToken
         delete ret.__v
       },
     },
@@ -60,6 +86,7 @@ const userSchema = new mongoose.Schema(
 
 userSchema.pre('save', async function () {
   // IF PASSWORD IS NOT MODIFIED, DO NOT HASH THE PASSWORD
+  if (!this.password) return
   if (!this.isModified('password')) return
 
   const hashedPassword = await Password.toHash(this.password)
@@ -72,7 +99,7 @@ userSchema.methods.comparePassword = async function (providedPassword: string) {
 }
 
 userSchema.methods.createJwt = function () {
-  const token = jwt.sign({ userId: this._id }, process.env.JWT_KEY!, {
+  const token = jwt.sign({ userId: this._id }, process.env.JWT_SECRET!, {
     expiresIn: process.env.JWT_LIFETIME,
   })
   return token
