@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { LoginPayload } from './types/userTypes'
+import { LoginPayload } from './userTypes'
 
 interface UserState {
   firstName: string

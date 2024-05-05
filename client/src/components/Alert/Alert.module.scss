@@ -1,0 +1,21 @@
+@import '../../styles/utilities/all';
+
+.alertContainer {
+  padding: 2rem 4rem;
+}
+
+.success {
+  background-color: $green;
+}
+
+.danger {
+  background-color: $red;
+}
+
+.danger {
+  background-color: $light;
+}
+
+.alertText {
+  font-size: 2rem;
+}

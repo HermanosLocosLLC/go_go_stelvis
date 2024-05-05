@@ -5,11 +5,11 @@ import { Password } from '../utils/password'
 // An interface that describes the properties
 // that are requried to create a new User
 interface UserAttrs {
-  firstName: string
-  lastName: string
+  firstName?: string
+  lastName?: string
   email: string
   password?: string
-  pfp: string | null
+  pfp?: string
   userType: 'gogo' | 'google' | 'facebook' | 'discord'
   accessToken?: string
   refreshToken?: string
@@ -26,10 +26,11 @@ interface UserModel extends mongoose.Model<UserDoc> {
 // An interface that describes the properties
 // that a User Document has
 interface UserDoc extends mongoose.Document {
-  firstName: string
-  lastName: string
+  firstName?: string
+  lastName?: string
   email: string
   password?: string
+  pfp?: string
   userType: 'gogo' | 'google' | 'facebook' | 'discord'
   accessToken?: string
   refreshToken?: string
@@ -41,11 +42,9 @@ const userSchema = new mongoose.Schema(
   {
     firstName: {
       type: String,
-      required: true,
     },
     lastName: {
       type: String,
-      required: true,
     },
     email: {
       type: String,
@@ -77,6 +76,9 @@ const userSchema = new mongoose.Schema(
         delete ret.password
         delete ret.accessToken
         delete ret.refreshToken
+        delete ret.updatedAt
+        delete ret.createdAt
+        delete ret.userType
         delete ret.__v
       },
     },
