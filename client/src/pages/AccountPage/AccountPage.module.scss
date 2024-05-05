@@ -1,0 +1,5 @@
+@import '../../styles/utilities/all';
+
+.page {
+  @include page;
+}
