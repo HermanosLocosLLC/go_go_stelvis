@@ -8,6 +8,6 @@ export class ValidationError extends Error {
     this.msg = msg
     this.param = param
 
-    Object.setPrototypeOf(this, ValidationError)
+    Object.setPrototypeOf(this, ValidationError.prototype)
   }
 }

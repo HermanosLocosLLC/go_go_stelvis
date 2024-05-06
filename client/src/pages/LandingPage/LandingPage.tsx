@@ -10,7 +10,6 @@ const LandingPage = () => {
 
   useEffect(() => {
     if (user.email) {
-      console.log('Navigating to Home')
       navigate('/')
     }
     // eslint-disable-next-line

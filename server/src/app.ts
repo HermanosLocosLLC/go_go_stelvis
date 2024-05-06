@@ -8,13 +8,14 @@ import apiRouter from './routes'
 import { errorHandler } from './middlewares/error-handler'
 import { NotFoundError } from './errors/not-found-error'
 import cookieParser from 'cookie-parser'
+import { clientBaseUrl } from './utils/baseUrls'
 
 const app = express()
 
 app.use(
   cors({
     credentials: true,
-    origin: 'http://localhost:5150',
+    origin: clientBaseUrl,
   }),
 )
 app.use(express.json())

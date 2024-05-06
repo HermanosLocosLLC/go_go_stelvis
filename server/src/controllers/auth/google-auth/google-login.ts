@@ -5,10 +5,12 @@ import axios from 'axios'
 import { User } from '../../../models/user'
 import { attachCookie } from '../../../utils/attachCookie'
 import { GoogleUserInfo } from './util/googleUserType'
+import { clientBaseUrl } from '../../../utils/baseUrls'
+import { BadRequestError } from '../../../errors/bad-request-error'
 
 export const googleLogin = async (req: Request, res: Response) => {
-  console.log('💥 /google/login')
   const { code } = req.query
+
   if (!code || typeof code !== 'string') {
     throw new InternalError()
   }
@@ -36,7 +38,7 @@ export const googleLogin = async (req: Request, res: Response) => {
     if (currentUser) {
       const jwt = currentUser.createJwt()
       attachCookie(res, jwt)
-      res.redirect('http://localhost:5150/')
+      res.redirect(clientBaseUrl)
       return
     }
 
@@ -50,10 +52,10 @@ export const googleLogin = async (req: Request, res: Response) => {
     await newUser.save()
     const jwt = newUser.createJwt()
     attachCookie(res, jwt)
-    res.redirect('http://localhost:5150/')
+    res.redirect(clientBaseUrl)
     return
   } catch (err) {
-    console.log('❌ Error in googleLogin', err)
+    console.log('❌ Error in googleLogin')
 
     throw new InternalError()
   }

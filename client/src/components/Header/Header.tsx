@@ -30,7 +30,7 @@ const Header = () => {
   const handleLogout = async () => {
     dispatch(startLoading())
     try {
-      await authFetch('/logout')
+      await authFetch.post('/logout')
       dispatch(logoutUser())
     } catch (err) {
       dispatch(
@@ -59,12 +59,6 @@ const Header = () => {
 
   return (
     <header className={styles.headerContainer}>
-      {/* <div
-        className={`${styles.headerIcon} ${styles.headerBurgerIcon}`}
-        onClick={() => dispatch(toggleSideNavbar())}
-      >
-        <GiHamburgerMenu />
-      </div> */}
       {user.email ? (
         <div
           className={`${styles.headerIcon} ${styles.headerBurgerIcon}`}

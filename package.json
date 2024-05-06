@@ -5,7 +5,7 @@
   "scripts": {
     "dev:client": "cd client && npm run dev",
     "dev:server": "cd server && npm run dev",
-    "test": "cd server && npm run test"
+    "test:server": "cd server && npm run test"
   },
   "keywords": [],
   "author": "",

@@ -4,17 +4,17 @@ import { ValidationError } from '../../../errors/validation-error'
 import { User } from '../../../models/user'
 import { BadRequestError } from '../../../errors/bad-request-error'
 import { attachCookie } from '../../../utils/attachCookie'
+import { validateEmail } from '../../../utils/requestValidators/validateEmail'
 
 const login = async (req: Request, res: Response) => {
-  console.log('💥 Test Login')
-  console.log('🫃 req.body', req.body)
   const { email, password } = req.body
 
+  // INPUT VALIDATION
   const validationErrors = []
-  if (!email) {
+  if (!validateEmail(email)) {
     validationErrors.push(new ValidationError('Provide a poper email', 'email'))
   }
-  if (!password) {
+  if (!password || typeof password !== 'string') {
     validationErrors.push(
       new ValidationError('Provide a poper password', 'password'),
     )

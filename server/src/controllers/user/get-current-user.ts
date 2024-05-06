@@ -9,5 +9,5 @@ export const getCurrentUser = async (
 ) => {
   const user = await User.findById(req.currentUser)
 
-  res.status(200).send(user)
+  res.status(200).send(user || { message: 'No current user' })
 }

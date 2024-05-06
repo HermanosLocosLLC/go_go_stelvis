@@ -2,9 +2,16 @@ import { MongoMemoryServer } from 'mongodb-memory-server'
 import mongoose from 'mongoose'
 import request from 'supertest'
 import { app } from '../app'
+import { User } from '../models/user'
+
+interface globalLoginInterface {
+  cookie: string[] | undefined
+  email: string
+  password: string
+}
 
 declare global {
-  function login(): Promise<string[] | undefined>
+  function login(): Promise<globalLoginInterface>
 }
 
 let mongo: any
@@ -37,10 +44,10 @@ afterAll(async () => {
 
 global.login = async () => {
   const email = 'test@test.com'
-  const password = 'password'
+  const password = 'ilovetesting789!'
 
   const response = await request(app)
-    .post('/api/v1/v-auth/signup')
+    .post('/api/v1/auth/gogo/signup')
     .send({
       email,
       password,
@@ -49,5 +56,5 @@ global.login = async () => {
 
   const cookie = response.get('Set-Cookie')
 
-  return cookie
+  return { cookie, email, password }
 }
