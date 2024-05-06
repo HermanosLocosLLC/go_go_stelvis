@@ -8,3 +8,7 @@ export interface AlertPayload {
   alertType: AlertTypes
   alertMessage: string
 }
+
+export interface ToggleSideNavbarPayload {
+  type?: 'open' | 'close'
+}

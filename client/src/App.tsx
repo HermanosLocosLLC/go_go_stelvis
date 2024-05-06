@@ -14,21 +14,26 @@ import {
   showAlert,
   startLoading,
   stopLoading,
+  toggleSideNavbar,
 } from './store/appReducer/appReducer'
 import Loading from './components/Loading/Loading'
 import Alert from './components/Alert/Alert'
+import LoginPage from './pages/LoginPage/LoginPage'
+import Header from './components/Header/Header'
+import SideNavbar from './components/SideNavbar/SideNavbar'
 
 function App() {
   const dispatch = useDispatch()
-  const { isLoading, isAlert, alertMessage, alertType } = useSelector(
-    (state: RootState) => state.app,
-  )
+  const { isLoading, isAlert, alertMessage, alertType, sideNavbarOpen } =
+    useSelector((state: RootState) => state.app)
 
   const getCurrentUser = async () => {
     dispatch(startLoading())
     try {
       const response: { data: LoginPayload } = await userFetch('/')
-      dispatch(loginUser(response.data))
+      if (response.data.email) {
+        dispatch(loginUser(response.data))
+      }
       dispatch(stopLoading())
     } catch (err) {
       dispatch(stopLoading())
@@ -38,8 +43,10 @@ function App() {
           alertType: 'danger',
         }),
       )
-      dispatch(clearAlert({}))
       dispatch(logoutUser())
+      setTimeout(() => {
+        dispatch(clearAlert())
+      }, 3000)
     }
   }
 
@@ -50,6 +57,8 @@ function App() {
 
   return (
     <>
+      <Header />
+      {sideNavbarOpen !== 'default' && <SideNavbar />}
       {isLoading && <Loading />}
       {isAlert && <Alert message={alertMessage} type={alertType} />}
       <Routes>
@@ -58,6 +67,7 @@ function App() {
           <Route path='account' element={<AccountPage />} />
         </Route>
         <Route path='/landing' element={<LandingPage />} />
+        <Route path='/login' element={<LoginPage />} />
       </Routes>
     </>
   )

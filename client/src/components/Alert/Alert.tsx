@@ -9,7 +9,7 @@ type Props = {
 
 const Alert = ({ message, type }: Props) => {
   return (
-    <div className={styles[`alertContainer${type}`]}>
+    <div className={`${styles.alertContainer} ${styles[type]}`}>
       <p className={styles.alertText}>{message}</p>
     </div>
   )

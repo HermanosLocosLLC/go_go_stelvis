@@ -1,0 +1,92 @@
+@import '../../styles/utilities/all';
+
+$animation-time: 500ms;
+
+.sideNavbarContainer {
+  position: absolute;
+  top: 0%;
+  @include flex(column, space-between, center);
+  width: fit-content;
+  height: 100vh;
+  padding: 4rem 3rem 1rem;
+  border-right: 3px solid $dark;
+  background-color: $light;
+  @include bs-lg;
+
+  z-index: 5000;
+}
+
+.sideNavbarOpen {
+  animation: open-nav $animation-time ease-out forwards;
+}
+
+.sideNavbarClose {
+  animation: close-nav $animation-time ease-in-out forwards;
+}
+
+.navbarLinksContainer {
+  @include flex(column, center, start);
+}
+
+.navbarLink {
+  color: inherit;
+  text-decoration: none;
+  @include transition;
+  font-size: 1.5rem;
+
+  &:hover {
+    text-decoration: underline;
+    font-weight: bolder;
+  }
+}
+
+.navbarLogoContainer {
+  width: 100%;
+  @include flex;
+}
+
+.navbarLogo {
+  width: 100px;
+}
+
+.navbarLogoCopy {
+  font-size: 0.5rem;
+}
+
+.sideNavbarCloser {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100vh;
+  background-color: transparent;
+  backdrop-filter: blur(5px);
+  animation: fade-in $animation-time forwards;
+}
+
+@keyframes open-nav {
+  0% {
+    transform: translateX(-110%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes close-nav {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-110%);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
