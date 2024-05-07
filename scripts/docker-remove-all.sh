@@ -15,7 +15,7 @@ echo ''
 
 CONTAINER_SEARCH_NAME=$1
 IMAGE_SEARCH_NAME=$2
-# VOLUME_SEARCH_NAME=$3
+VOLUME_SEARCH_NAME=$3
 
 # Remove containers
 echo -e "${CYAN}Removing existing containers from local environment:${NC}"
@@ -42,14 +42,14 @@ else
 fi
 
 # Remove volumes
-# echo -e "${CYAN}Removing existing volumes from local environment:${NC}"
-# VOLUMES=$(docker volume ls -q -f name=$VOLUME_SEARCH_NAME)
-# if [ ! -z "$VOLUMES" ]; then
-#   docker volume rm $VOLUMES --force
-#   echo 'Removed volumes.'
-# else
-#   echo 'No volumes to remove.'
-# fi
+echo -e "${CYAN}Removing existing volumes from local environment:${NC}"
+VOLUMES=$(docker volume ls -q -f name=$VOLUME_SEARCH_NAME)
+if [ ! -z "$VOLUMES" ]; then
+  docker volume rm $VOLUMES --force
+  echo 'Removed volumes.'
+else
+  echo 'No volumes to remove.'
+fi
 
 echo ''
 echo -e "${GREEN}REMOVE ALL COMPLETE!${NC}"
