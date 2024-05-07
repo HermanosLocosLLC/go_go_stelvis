@@ -6,7 +6,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../store/store'
 import { useNavigate } from 'react-router-dom'
 import { LoginPayload } from '../../store/userReducer/userTypes'
-import { loginUser, logoutUser } from '../../store/userReducer/userReducer'
+import { loginUser } from '../../store/userReducer/userReducer'
+import { clearAlert, showAlert } from '../../store/appReducer/appReducer'
 
 const LoginPage = () => {
   const [login, setLogin] = useState<boolean>(true)
@@ -44,12 +45,36 @@ const LoginPage = () => {
           password,
         },
       )
+      dispatch(
+        showAlert({
+          alertType: 'success',
+          alertMessage: `${login ? 'Login' : 'Signup'} successful`,
+        }),
+      )
       dispatch(loginUser(response.data))
     } catch (err) {
-      if (err instanceof AxiosError) console.log(err.response?.data.message)
-      else console.log(err)
-      dispatch(logoutUser())
+      if (err instanceof AxiosError) {
+        dispatch(
+          showAlert({
+            alertType: 'danger',
+            alertMessage:
+              err.response?.data[0].message || 'Something went wrong',
+          }),
+        )
+      } else {
+        dispatch(
+          showAlert({
+            alertType: 'danger',
+            alertMessage: 'Something went wrong',
+          }),
+        )
+      }
     }
+    setEmail('')
+    setPassword('')
+    setTimeout(() => {
+      dispatch(clearAlert())
+    }, 3000)
   }
 
   return (

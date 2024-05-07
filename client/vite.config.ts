@@ -4,10 +4,16 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
-    open: true,
+    // open: true,
+    host: '0.0.0.0',
     port: 5150,
-    strictPort: true,
+    // strictPort: true,
     https: false,
+    hmr: {
+      protocol: 'ws',
+      port: 5150,
+      host: '0.0.0.0',
+    },
   },
   build: {
     rollupOptions: {

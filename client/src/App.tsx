@@ -14,7 +14,6 @@ import {
   showAlert,
   startLoading,
   stopLoading,
-  toggleSideNavbar,
 } from './store/appReducer/appReducer'
 import Loading from './components/Loading/Loading'
 import Alert from './components/Alert/Alert'

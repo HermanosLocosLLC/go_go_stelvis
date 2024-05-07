@@ -31,6 +31,7 @@ const Header = () => {
     dispatch(startLoading())
     try {
       await authFetch.post('/logout')
+      setShowUserMenu(false)
       dispatch(logoutUser())
     } catch (err) {
       dispatch(
@@ -48,11 +49,8 @@ const Header = () => {
 
   const userMenuBtn = (clickHandler: () => void, text: string) => {
     return (
-      <button
-        onClick={user.email ? handleLogout : handleNavToLogin}
-        className={styles.userMenuLink}
-      >
-        {user.email ? 'Logout' : 'Login / Signup'}
+      <button onClick={clickHandler} className={styles.userMenuLink}>
+        {text}
       </button>
     )
   }
@@ -78,8 +76,8 @@ const Header = () => {
       </div>
       {showUserMenu && (
         <div className={styles.userMenu}>
-          {user.email && userMenuBtn(handleNavToLogin, 'Login / Signup')}
-          {!user.email && userMenuBtn(handleLogout, 'Logout')}
+          {!user.email && userMenuBtn(handleNavToLogin, 'Login / Signup')}
+          {user.email && userMenuBtn(handleLogout, 'Logout')}
         </div>
       )}
     </header>
