@@ -1,20 +1,15 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import styles from './LoginPage.module.scss'
-import { AxiosError } from 'axios'
-import { authFetch } from '../../utils/authFetch'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, RootState } from '../../store/store'
 import { useNavigate } from 'react-router-dom'
-import { LoginPayload } from '../../store/userReducer/userTypes'
 import { loginUser } from '../../store/userReducer/userReducer'
-import { clearAlert, showAlert } from '../../store/appReducer/appReducer'
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux'
+import { clearAlert, showAlert } from '../../store/appReducer/appReducer'
 
 const LoginPage = () => {
   const [login, setLogin] = useState<boolean>(true)
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
-  const user = useSelector((state: RootState) => state.user)
+  const user = useAppSelector((state) => state.user)
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
@@ -43,49 +38,13 @@ const LoginPage = () => {
       ).unwrap()
       console.log('Result:', result)
     } catch (err) {
-      console.log('Error', err)
+      dispatch(showAlert({ alertMessage: err as string, alertType: 'danger' }))
+      setEmail('')
+      setPassword('')
+      setTimeout(() => {
+        dispatch(clearAlert())
+      }, 2500)
     }
-    // if (!email || !password) return
-    // const endpoint = login ? 'gogo/login' : 'gogo/signup'
-
-    // try {
-    //   const response: { data: LoginPayload } = await authFetch.post(
-    //     `/${endpoint}`,
-    //     {
-    //       email,
-    //       password,
-    //     },
-    //   )
-    //   dispatch(
-    //     showAlert({
-    //       alertType: 'success',
-    //       alertMessage: `${login ? 'Login' : 'Signup'} successful`,
-    //     }),
-    //   )
-    //   dispatch(loginUser(response.data))
-    // } catch (err) {
-    //   if (err instanceof AxiosError) {
-    //     dispatch(
-    //       showAlert({
-    //         alertType: 'danger',
-    //         alertMessage:
-    //           err.response?.data[0].message || 'Something went wrong',
-    //       }),
-    //     )
-    //   } else {
-    //     dispatch(
-    //       showAlert({
-    //         alertType: 'danger',
-    //         alertMessage: 'Something went wrong',
-    //       }),
-    //     )
-    //   }
-    // }
-    // setEmail('')
-    // setPassword('')
-    // setTimeout(() => {
-    //   dispatch(clearAlert())
-    // }, 3000)
   }
 
   return (

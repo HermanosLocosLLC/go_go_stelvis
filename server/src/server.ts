@@ -1,4 +1,4 @@
-import mongoose, { mongo } from 'mongoose'
+import mongoose from 'mongoose'
 import { app } from './app'
 import { DatabaseConnectionError } from './errors/database-connection-error'
 
@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 3000
 const start = async () => {
   if (!process.env.JWT_SECRET) throw Error('❌ JWT_SECRET must be defined')
   if (!process.env.JWT_LIFETIME) throw Error('❌ JWT_LIFETIME must be defined')
-  if (!process.env.MONGO_URI) throw Error('❌ JWT_SECRET must be defined')
+  if (!process.env.MONGO_URI) throw Error('❌ MONGO_URI must be defined')
   if (!process.env.GOOGLE_CLIENT_ID)
     throw Error('❌ GOOGLE_CLIENT_ID must be defined')
   if (!process.env.GOOGLE_CLIENT_SECRET)

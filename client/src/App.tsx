@@ -4,61 +4,37 @@ import Protected from './pages/Protected/Protected'
 import HomePage from './pages/HomePage/HomePage'
 import AccountPage from './pages/AccountPage/AccountPage'
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { loginUser, logoutUser } from './store/userReducer/userReducer'
-import { LoginPayload } from './store/userReducer/userTypes'
-import { userFetch } from './utils/userFetch'
-import { RootState } from './store/store'
-import {
-  clearAlert,
-  showAlert,
-  startLoading,
-  stopLoading,
-} from './store/appReducer/appReducer'
+import { getCurrentUser } from './store/userReducer/userReducer'
 import Loading from './components/Loading/Loading'
 import Alert from './components/Alert/Alert'
 import LoginPage from './pages/LoginPage/LoginPage'
 import Header from './components/Header/Header'
 import SideNavbar from './components/SideNavbar/SideNavbar'
+import { useAppDispatch, useAppSelector } from './hooks/useRedux'
 
 function App() {
-  const dispatch = useDispatch()
   const { isLoading, isAlert, alertMessage, alertType, sideNavbarOpen } =
-    useSelector((state: RootState) => state.app)
-
-  const getCurrentUser = async () => {
-    dispatch(startLoading())
+    useAppSelector((state) => state.app)
+  const { loading } = useAppSelector((state) => state.user)
+  const dispatch = useAppDispatch()
+  const checkUser = async () => {
     try {
-      const response: { data: LoginPayload } = await userFetch('/')
-      if (response.data.email) {
-        dispatch(loginUser(response.data))
-      }
-      dispatch(stopLoading())
+      const result = await dispatch(getCurrentUser()).unwrap()
+      console.log('Get Current User Result', result)
     } catch (err) {
-      dispatch(stopLoading())
-      dispatch(
-        showAlert({
-          alertMessage: 'Something went wrong',
-          alertType: 'danger',
-        }),
-      )
-      dispatch(logoutUser())
-      setTimeout(() => {
-        dispatch(clearAlert())
-      }, 3000)
+      console.log('getCurrentUser Error:', err)
     }
   }
 
   useEffect(() => {
-    getCurrentUser()
-    // eslint-disable-next-line
+    checkUser()
   }, [])
 
   return (
     <>
       <Header />
       {sideNavbarOpen !== 'default' && <SideNavbar />}
-      {isLoading && <Loading />}
+      {(isLoading || loading === 'pending') && <Loading />}
       {isAlert && <Alert message={alertMessage} type={alertType} />}
       <Routes>
         <Route path='/' element={<Protected />}>

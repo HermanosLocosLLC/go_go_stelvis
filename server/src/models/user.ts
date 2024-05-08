@@ -42,9 +42,11 @@ const userSchema = new mongoose.Schema(
   {
     firstName: {
       type: String,
+      default: '',
     },
     lastName: {
       type: String,
+      default: '',
     },
     email: {
       type: String,
@@ -97,6 +99,7 @@ userSchema.pre('save', async function () {
 
 userSchema.methods.comparePassword = async function (providedPassword: string) {
   const isMatch = await Password.compare(this.password, providedPassword)
+  console.log('Comparing passwords:', isMatch)
   return isMatch
 }
 

@@ -30,7 +30,10 @@ const login = async (req: Request, res: Response) => {
       'Account uses other authentication means. Try logging in with Google, Facebook or Discord',
     )
 
-  const passwordsMatch = user.comparePassword(password)
+  // ignore warning - comparePassword is async - must use await
+  const passwordsMatch = await user.comparePassword(password)
+  console.log('passwordsMatch:', passwordsMatch)
+
   if (!passwordsMatch) throw new BadRequestError('Invalid credentials')
 
   const jwt = user.createJwt()
