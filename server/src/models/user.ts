@@ -30,7 +30,7 @@ interface UserDoc extends mongoose.Document {
   lastName?: string
   email: string
   password?: string
-  pfp?: string
+  pfp: string
   userType: 'gogo' | 'google' | 'facebook' | 'discord'
   accessToken?: string
   refreshToken?: string
@@ -52,6 +52,7 @@ const userSchema = new mongoose.Schema(
     },
     pfp: {
       type: String,
+      default: '',
     },
     password: {
       type: String,
@@ -78,7 +79,6 @@ const userSchema = new mongoose.Schema(
         delete ret.refreshToken
         delete ret.updatedAt
         delete ret.createdAt
-        delete ret.userType
         delete ret.__v
       },
     },
