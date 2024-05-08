@@ -67,12 +67,17 @@ const Header = () => {
       ) : (
         <div></div>
       )}
+
       <div
-        className={`${styles.headerIcon} ${styles.headerAccountIcon}`}
+        className={`${styles.headerIcon} ${!user.pfp ? styles.headerAccountIcon : styles.headerAccountPfp}`}
         title='Login/Signup'
         onClick={() => setShowUserMenu(!showUserMenu)}
       >
-        <FaUser />
+        {!user.pfp ? (
+          <FaUser />
+        ) : (
+          <img className={styles.pfp} src={user.pfp} alt='profile picture' />
+        )}
       </div>
       {showUserMenu && (
         <div className={styles.userMenu}>
