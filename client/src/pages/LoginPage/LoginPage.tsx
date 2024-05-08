@@ -3,11 +3,12 @@ import styles from './LoginPage.module.scss'
 import { AxiosError } from 'axios'
 import { authFetch } from '../../utils/authFetch'
 import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../store/store'
+import { AppDispatch, RootState } from '../../store/store'
 import { useNavigate } from 'react-router-dom'
 import { LoginPayload } from '../../store/userReducer/userTypes'
 import { loginUser } from '../../store/userReducer/userReducer'
 import { clearAlert, showAlert } from '../../store/appReducer/appReducer'
+import { useAppDispatch, useAppSelector } from '../../hooks/useRedux'
 
 const LoginPage = () => {
   const [login, setLogin] = useState<boolean>(true)
@@ -15,7 +16,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState<string>('')
   const user = useSelector((state: RootState) => state.user)
   const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     if (user.email) {
@@ -34,47 +35,57 @@ const LoginPage = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (!email || !password) return
-    const endpoint = login ? 'gogo/login' : 'gogo/signup'
+    console.log('HandleSubmit')
 
     try {
-      const response: { data: LoginPayload } = await authFetch.post(
-        `/${endpoint}`,
-        {
-          email,
-          password,
-        },
-      )
-      dispatch(
-        showAlert({
-          alertType: 'success',
-          alertMessage: `${login ? 'Login' : 'Signup'} successful`,
-        }),
-      )
-      dispatch(loginUser(response.data))
+      const result = await dispatch(
+        loginUser({ login, email, password }),
+      ).unwrap()
+      console.log('Result:', result)
     } catch (err) {
-      if (err instanceof AxiosError) {
-        dispatch(
-          showAlert({
-            alertType: 'danger',
-            alertMessage:
-              err.response?.data[0].message || 'Something went wrong',
-          }),
-        )
-      } else {
-        dispatch(
-          showAlert({
-            alertType: 'danger',
-            alertMessage: 'Something went wrong',
-          }),
-        )
-      }
+      console.log('Error', err)
     }
-    setEmail('')
-    setPassword('')
-    setTimeout(() => {
-      dispatch(clearAlert())
-    }, 3000)
+    // if (!email || !password) return
+    // const endpoint = login ? 'gogo/login' : 'gogo/signup'
+
+    // try {
+    //   const response: { data: LoginPayload } = await authFetch.post(
+    //     `/${endpoint}`,
+    //     {
+    //       email,
+    //       password,
+    //     },
+    //   )
+    //   dispatch(
+    //     showAlert({
+    //       alertType: 'success',
+    //       alertMessage: `${login ? 'Login' : 'Signup'} successful`,
+    //     }),
+    //   )
+    //   dispatch(loginUser(response.data))
+    // } catch (err) {
+    //   if (err instanceof AxiosError) {
+    //     dispatch(
+    //       showAlert({
+    //         alertType: 'danger',
+    //         alertMessage:
+    //           err.response?.data[0].message || 'Something went wrong',
+    //       }),
+    //     )
+    //   } else {
+    //     dispatch(
+    //       showAlert({
+    //         alertType: 'danger',
+    //         alertMessage: 'Something went wrong',
+    //       }),
+    //     )
+    //   }
+    // }
+    // setEmail('')
+    // setPassword('')
+    // setTimeout(() => {
+    //   dispatch(clearAlert())
+    // }, 3000)
   }
 
   return (

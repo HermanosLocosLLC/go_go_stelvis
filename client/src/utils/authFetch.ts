@@ -1,4 +1,6 @@
 import axios, { AxiosError } from 'axios'
+import { useAppDispatch } from '../hooks/useRedux'
+import { logoutUser } from '../store/userReducer/userReducer'
 
 const authFetch = axios.create({
   baseURL: 'http://localhost:3000/api/v1/auth',
@@ -14,7 +16,8 @@ authFetch.interceptors.response.use(
     // console.log(err)
     if (err.response?.status === 401) {
       // TODO
-      // logoutUser()
+      // const dispatch = useAppDispatch()
+      // dispatch(logoutUser())
     }
     return Promise.reject(err)
   },

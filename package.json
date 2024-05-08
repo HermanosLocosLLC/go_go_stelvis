@@ -5,6 +5,7 @@
   "scripts": {
     "dev:client": "cd client && npm run dev",
     "dev:server": "cd server && npm run dev",
+    "dev:hot": "cd server && npm run dev & cd client && npm run dev",
     "test:server": "cd server && npm run test",
     "docker-dev:hot": "docker-compose -f docker-dev-hot.yml up --build",
     "docker-build-images": "cd client && npm run docker-build && cd ../server && npm run docker-build",
