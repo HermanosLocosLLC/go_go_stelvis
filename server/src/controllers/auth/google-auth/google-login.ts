@@ -9,7 +9,11 @@ import { clientBaseUrl } from '../../../utils/baseUrls'
 import { BadRequestError } from '../../../errors/bad-request-error'
 
 export const googleLogin = async (req: Request, res: Response) => {
-  const { code } = req.query
+  const { code, error } = req.query
+
+  if (error) {
+    return res.redirect(clientBaseUrl + '/landing')
+  }
 
   if (!code || typeof code !== 'string') {
     throw new InternalError()
