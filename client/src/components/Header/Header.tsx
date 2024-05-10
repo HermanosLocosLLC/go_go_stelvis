@@ -2,7 +2,6 @@ import { GiHamburgerMenu } from 'react-icons/gi'
 import { FaUser } from 'react-icons/fa'
 
 import styles from './Header.module.scss'
-import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../store/store'
 import {
   clearAlert,
@@ -15,11 +14,12 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { authFetch } from '../../utils/authFetch'
 import { logoutUser } from '../../store/userReducer/userReducer'
+import { useAppDispatch, useAppSelector } from '../../hooks/useRedux'
 
 const Header = () => {
   const [showUserMenu, setShowUserMenu] = useState(false)
-  const dispatch = useDispatch()
-  const user = useSelector((state: RootState) => state.user)
+  const dispatch = useAppDispatch()
+  const user = useAppSelector((state: RootState) => state.user)
   const navigate = useNavigate()
 
   const handleNavToLogin = () => {
@@ -69,7 +69,9 @@ const Header = () => {
       )}
 
       <div
-        className={`${styles.headerIcon} ${!user.pfp ? styles.headerAccountIcon : styles.headerAccountPfp}`}
+        className={`${styles.headerIcon} ${
+          !user.pfp ? styles.headerAccountIcon : styles.headerAccountPfp
+        }`}
         title='Login/Signup'
         onClick={() => setShowUserMenu(!showUserMenu)}
       >

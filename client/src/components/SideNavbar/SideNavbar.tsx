@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom'
 import styles from './SideNavbar.module.scss'
-import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../store/store'
 import { toggleSideNavbar } from '../../store/appReducer/appReducer'
 import gogoLogo from '../../assets/travel-icon-noBg.png'
+import { useAppDispatch, useAppSelector } from '../../hooks/useRedux'
 
 const SideNavbar = () => {
-  const { sideNavbarOpen } = useSelector((state: RootState) => state.app)
-  const dispatch = useDispatch()
+  const { sideNavbarOpen } = useAppSelector((state: RootState) => state.app)
+  const dispatch = useAppDispatch()
 
   return (
     <>

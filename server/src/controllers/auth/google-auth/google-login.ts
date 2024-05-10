@@ -6,7 +6,6 @@ import { User } from '../../../models/user'
 import { attachCookie } from '../../../utils/attachCookie'
 import { GoogleUserInfo } from './util/googleUserType'
 import { clientBaseUrl } from '../../../utils/baseUrls'
-import { BadRequestError } from '../../../errors/bad-request-error'
 
 export const googleLogin = async (req: Request, res: Response) => {
   const { code, error } = req.query

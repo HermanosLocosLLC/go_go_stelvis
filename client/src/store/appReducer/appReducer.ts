@@ -5,23 +5,26 @@ import {
   DarkModePayload,
   ToggleSideNavbarPayload,
 } from './appTypes'
+import { SerializedError } from '../../types/serializedError'
 
 interface AppState {
   isLoading: boolean
   darkMode: boolean
+  sideNavbarOpen: boolean | 'default'
   isAlert: boolean
   alertMessage: string
   alertType: AlertTypes | ''
-  sideNavbarOpen: boolean | 'default'
+  errors: SerializedError[]
 }
 
 const initialState: AppState = {
   isLoading: false,
   darkMode: false,
+  sideNavbarOpen: 'default',
   isAlert: false,
   alertMessage: '',
   alertType: '',
-  sideNavbarOpen: 'default',
+  errors: [],
 }
 
 export const appSlice = createSlice({
@@ -66,6 +69,14 @@ export const appSlice = createSlice({
           : !state.sideNavbarOpen
       return state
     },
+    setErrors: (state, action: PayloadAction<SerializedError[]>) => {
+      state.errors = action.payload
+      return state
+    },
+    clearErrors: (state) => {
+      state.errors = []
+      return state
+    },
   },
 })
 
@@ -76,5 +87,7 @@ export const {
   showAlert,
   clearAlert,
   toggleSideNavbar,
+  setErrors,
+  clearErrors,
 } = appSlice.actions
 export default appSlice.reducer
