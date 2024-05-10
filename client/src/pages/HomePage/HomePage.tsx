@@ -6,7 +6,6 @@ const HomePage = () => {
       <div className={styles.homePageCard}></div>
       <div className={styles.homePageCard}></div>
       <div className={styles.homePageCard}></div>
-      <div className={styles.homePageCard}></div>
     </main>
   )
 }

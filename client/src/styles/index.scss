@@ -27,5 +27,9 @@ body {
 
   color: $dark;
   background-color: $light;
-  // background-color: red;
+  background-image: url('/gogo-bg-grad.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
 }

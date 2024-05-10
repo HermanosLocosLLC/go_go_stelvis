@@ -3,7 +3,13 @@ import styles from './LoginPage.module.scss'
 import { useNavigate } from 'react-router-dom'
 import { loginUser } from '../../store/userReducer/userReducer'
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux'
-import { clearAlert, showAlert } from '../../store/appReducer/appReducer'
+import {
+  clearAlert,
+  clearErrors,
+  setErrors,
+  showAlert,
+} from '../../store/appReducer/appReducer'
+import { SerializedError } from '../../types/serializedError'
 
 const LoginPage = () => {
   const [login, setLogin] = useState<boolean>(true)
@@ -38,11 +44,11 @@ const LoginPage = () => {
       ).unwrap()
       console.log('Result:', result)
     } catch (err) {
-      dispatch(showAlert({ alertMessage: err as string, alertType: 'danger' }))
+      dispatch(setErrors(err as SerializedError[]))
       setEmail('')
       setPassword('')
       setTimeout(() => {
-        dispatch(clearAlert())
+        dispatch(clearErrors())
       }, 2500)
     }
   }

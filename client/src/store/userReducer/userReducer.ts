@@ -1,9 +1,4 @@
-import {
-  PayloadAction,
-  createAsyncThunk,
-  createSlice,
-  SerializedError,
-} from '@reduxjs/toolkit'
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { LoginPayload } from './userTypes'
 import { authFetch } from '../../utils/authFetch'
 import { AxiosError } from 'axios'
@@ -54,26 +49,22 @@ export const loginUser = createAsyncThunk(
     }: { login: boolean; email: string; password: string },
     thunkApi,
   ) => {
-    console.log('💥 Login User')
-
     if (!email || !password) return
     try {
       const response = await authFetch.post(
         `/gogo/${login ? 'login' : 'signup'}`,
         { email, password },
       )
-      console.log('Response.data', response.data)
       return response.data
     } catch (err) {
       console.log('❌ Error:', err)
       const errMsg = 'Something went wrong, please try again later'
       if (err instanceof AxiosError) {
-        console.log('AxiosError: thunkApi.rejectWithValue')
-        console.log(err.response)
-        return thunkApi.rejectWithValue(err.response?.data[0].message || errMsg)
+        return thunkApi.rejectWithValue(
+          err.response?.data || [{ message: errMsg }],
+        )
       } else {
-        console.log('Not AxiosError: thunkApi.rejectWithValue')
-        return thunkApi.rejectWithValue(errMsg)
+        return thunkApi.rejectWithValue([{ message: errMsg }])
       }
     }
   },
@@ -96,8 +87,6 @@ export const userSlice = createSlice({
     builder.addCase(
       loginUser.fulfilled,
       (state, action: PayloadAction<LoginPayload>) => {
-        console.log('Fulfilled Action', action)
-        console.log('Fulfilled', action.payload)
         state.loading = 'succeeded'
         state.email = action.payload.email
         state.firstName = action.payload.firstName || ''
@@ -106,8 +95,7 @@ export const userSlice = createSlice({
         return state
       },
     )
-    builder.addCase(loginUser.rejected, (state, action) => {
-      console.log('Rejected:', action.payload)
+    builder.addCase(loginUser.rejected, (state) => {
       state.loading = 'failed'
       return state
     })
@@ -118,8 +106,9 @@ export const userSlice = createSlice({
     builder.addCase(
       getCurrentUser.fulfilled,
       (state, action: PayloadAction<LoginPayload>) => {
-        console.log('getCurrentUser Payload: ', action.payload)
         state.loading = 'succeeded'
+        if (!action.payload.email) return state
+
         state.email = action.payload.email || ''
         state.firstName = action.payload.firstName || ''
         state.lastName = action.payload.lastName || ''

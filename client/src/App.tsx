@@ -11,23 +11,24 @@ import LoginPage from './pages/LoginPage/LoginPage'
 import Header from './components/Header/Header'
 import SideNavbar from './components/SideNavbar/SideNavbar'
 import { useAppDispatch, useAppSelector } from './hooks/useRedux'
+import { nanoid } from '@reduxjs/toolkit'
 
 function App() {
-  const { isLoading, isAlert, alertMessage, alertType, sideNavbarOpen } =
-    useAppSelector((state) => state.app)
+  const {
+    isLoading,
+    isAlert,
+    alertMessage,
+    alertType,
+    sideNavbarOpen,
+    errors,
+  } = useAppSelector((state) => state.app)
+
   const { loading } = useAppSelector((state) => state.user)
   const dispatch = useAppDispatch()
-  const checkUser = async () => {
-    try {
-      const result = await dispatch(getCurrentUser()).unwrap()
-      console.log('Get Current User Result', result)
-    } catch (err) {
-      console.log('getCurrentUser Error:', err)
-    }
-  }
 
   useEffect(() => {
-    checkUser()
+    dispatch(getCurrentUser())
+    // eslint-disable-next-line
   }, [])
 
   return (
@@ -36,6 +37,10 @@ function App() {
       {sideNavbarOpen !== 'default' && <SideNavbar />}
       {(isLoading || loading === 'pending') && <Loading />}
       {isAlert && <Alert message={alertMessage} type={alertType} />}
+      {errors.length > 0 &&
+        errors.map((err) => (
+          <Alert key={nanoid()} message={err.message} type='danger' />
+        ))}
       <Routes>
         <Route path='/' element={<Protected />}>
           <Route index element={<HomePage />} />
