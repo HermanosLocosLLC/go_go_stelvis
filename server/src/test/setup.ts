@@ -1,8 +1,7 @@
-import { MongoMemoryServer } from 'mongodb-memory-server'
+// import { MongoMemoryServer } from 'mongodb-memory-server'
 import mongoose from 'mongoose'
 import request from 'supertest'
 import { app } from '../app'
-import { User } from '../models/user'
 
 interface globalLoginInterface {
   cookie: string[] | undefined
@@ -21,8 +20,9 @@ beforeAll(async () => {
   process.env.JWT_LIFETIME = '60s'
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
-  mongo = await MongoMemoryServer.create()
-  const mongoUri = mongo.getUri()
+  // mongo = await MongoMemoryServer.create()
+  // const mongoUri = mongo.getUri()
+  const mongoUri = 'mongodb://gogo-mongo-test:27017/gogo-testdb'
 
   await mongoose.connect(mongoUri, {})
 })

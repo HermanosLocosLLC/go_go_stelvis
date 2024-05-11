@@ -3,7 +3,7 @@ import { google } from 'googleapis'
 const GOOGLE_REDIRECT_URL =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:3000/api/v1/auth/google/login'
-    : process.env.NODE_ENV === 'testing'
+    : process.env.NODE_ENV === 'test'
     ? 'http://localhost:3000/api/v1/auth/google/login'
     : process.env.NODE_ENV === 'production'
     ? undefined
