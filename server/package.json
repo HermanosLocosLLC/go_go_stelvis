@@ -2,27 +2,21 @@
   "name": "hermanos_locos_server",
   "version": "1.0.0",
   "main": "index.js",
+  "keywords": [],
+  "author": "seantokuzo",
+  "license": "ISC",
+  "description": "",
   "scripts": {
     "dev": "NODE_ENV=development nodemon",
     "build": "tsc",
     "docker-build": "docker build -t seantokuzo/gogo-server .",
     "docker-push": "docker push seantokuzo/gogo-server",
     "start": "NODE_ENV=production node ./dist/server.js",
-    "test": "NODE_ENV=testing jest --watchAll --no-cache"
+    "test": "NODE_ENV=test jest --verbose --color --detectOpenHandles",
+    "test:watch": "NODE_ENV=test jest --watchAll --no-cache"
   },
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "node",
-    "setupFilesAfterEnv": [
-      "./src/test/setup.ts"
-    ]
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
-    "aws-sdk": "^2.1616.0",
+    "@aws-sdk/client-s3": "^3.574.0",
     "axios": "^1.6.8",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
