@@ -4,18 +4,16 @@ on:
 jobs:
   unit-testing:
     runs-on: ubuntu-latest
-    env:
-      JWT_SECRET: ${{ secrets.JWT_SECRET }}
     steps:
       - uses: actions/checkout@v3
       - name: Build Client Docker Image
         run: docker build -t seantokuzo/gogo-client-test:latest -f Dockerfile-client .
-      - name: Install Root Dependencies
+      - name: Install Client Dependencies
         run: docker run seantokuzo/gogo-client-test:latest npm install
       - name: Build Server Docker Image
         run: docker build -t seantokuzo/gogo-server-test:latest -f Dockerfile-server .
-      - name: Install Root Dependencies
-        run: docker run seantokuzo/gogo-client-test:latest npm install
+      - name: Install Server Dependencies
+        run: docker run seantokuzo/gogo-server-test:latest npm install
       - name: Run Docker Tests
         run: docker-compose -f docker-compose-test.yml up --abort-on-container-exit
         env:
