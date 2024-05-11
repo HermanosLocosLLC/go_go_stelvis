@@ -1,4 +1,4 @@
-name: 'gogo-test'
+# name: 'gogo-test'
 version: '3'
 services:
   # gogo-client-test:
