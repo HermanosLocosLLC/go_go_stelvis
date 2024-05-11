@@ -7,10 +7,11 @@
     "dev:server": "cd server && npm run dev",
     "dev:hot": "cd server && npm run dev & cd client && npm run dev",
     "test:server": "cd server && npm run test",
-    "docker-dev:hot": "docker-compose -f docker-dev-hot.yml up --build",
+    "docker-dev:hot": "docker compose -f docker-compose-dev-hot.yml up --build",
+    "docker-test": "TEST_CMD=test docker compose -f docker-compose-test.yml up --abort-on-container-exit",
     "docker-build-images": "cd client && npm run docker-build && cd ../server && npm run docker-build",
     "docker-push-images": "docker push seantokuzo/gogo-client && docker push seantokuzo/gogo-server",
-    "docker-remove-all": "bash ./scripts/docker-remove-all.sh gogo gogo gogo-dev"
+    "docker-remove-all": "bash ./scripts/docker-remove-all.sh gogo gogo gogo"
   },
   "keywords": [],
   "author": "",
