@@ -16,6 +16,7 @@ jobs:
         run: docker run seantokuzo/gogo-server-test:latest npm install
       - name: Run Docker Tests
         run: docker-compose -f docker-compose-test.yml up --abort-on-container-exit
+        environment: CI
         env:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           JWT_LIFETIME: 1d

@@ -18,15 +18,15 @@ services:
     image: seantokuzo/gogo-server
     ports:
       - 3000:3000
-    # environment:
-    #   - JWT_SECRET=poopityscoopityDERPDEEDOO
-    #   - JWT_LIFETIME=1d
-    #   - MONGO_URI=mongodb://gogo-mongo-test:27017/gogo-testdb
-    #   - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
-    #   - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
-    #   - GOOGLE_REDIRECT_URL=${GOOGLE_REDIRECT_URL}
-    #   - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
-    #   - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    environment:
+      - JWT_SECRET=poopityscoopityDERPDEEDOO
+      - JWT_LIFETIME=1d
+      - MONGO_URI=mongodb://gogo-mongo-test:27017/gogo-testdb
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - GOOGLE_REDIRECT_URL=${GOOGLE_REDIRECT_URL}
+      - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
     volumes:
       - ./server:/app
       - server_node_modules_test:/app/node_modules
