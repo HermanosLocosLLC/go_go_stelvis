@@ -1,0 +1,52 @@
+name: 'gogo-test'
+version: '3'
+services:
+  # gogo-client-test:
+  #   container_name: gogo-client-test
+  #   image: seantokuzo/gogo-client
+  #   ports:
+  #     - '5150:5150'
+  #   volumes:
+  #     - ./client:/app
+  #     - client_node_modules_test:/app/node_modules
+  #   depends_on:
+  #     - gogo-server-test
+  #   command: npm run dev
+
+  gogo-server-test:
+    container_name: gogo-server-test
+    image: seantokuzo/gogo-server
+    ports:
+      - 3000:3000
+    environment:
+      - JWT_SECRET=poopityscoopityDERPDEEDOO
+      - JWT_LIFETIME=1d
+      - MONGO_URI=mongodb://gogo-mongo-test:27017/gogo-testdb
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - GOOGLE_REDIRECT_URL=${GOOGLE_REDIRECT_URL}
+      - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    volumes:
+      - ./server:/app
+      - server_node_modules_test:/app/node_modules
+    depends_on:
+      - gogo-mongo-test
+    command: npm run test
+
+  gogo-mongo-test:
+    container_name: gogo-mongo-test
+    image: mongo
+    # restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_DATABASE: gogo-testdb
+    volumes:
+      - mongo-test-volume:/data/db
+    command: mongod --quiet --logpath /dev/null
+
+volumes:
+  mongo-test-volume:
+  # client_node_modules_test:
+  server_node_modules_test:
