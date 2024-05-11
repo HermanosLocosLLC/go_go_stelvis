@@ -2,8 +2,8 @@ import path from 'path'
 import express from 'express'
 import 'express-async-errors'
 // only needed when not dockerized
-// import dotenv from 'dotenv'
-// dotenv.config({ path: path.join(__dirname, '/../../.env') })
+import dotenv from 'dotenv'
+dotenv.config({ path: path.join(__dirname, '/../../.env') })
 import cors from 'cors'
 import apiRouter from './routes'
 import { errorHandler } from './middlewares/error-handler'

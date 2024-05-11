@@ -1,0 +1,28 @@
+name: build-tests
+on:
+  pull_request:
+jobs:
+  unit-testing:
+    runs-on: ubuntu-latest
+    environment: CI
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build Client Docker Image
+        run: docker build -t seantokuzo/gogo-client-test:latest -f Dockerfile-client .
+      - name: Install Client Dependencies
+        run: docker run seantokuzo/gogo-client-test:latest npm install
+      - name: Build Server Docker Image
+        run: docker build -t seantokuzo/gogo-server-test:latest -f Dockerfile-server .
+      - name: Install Server Dependencies
+        run: docker run seantokuzo/gogo-server-test:latest npm install
+      - name: Run Docker Tests
+        run: docker-compose -f docker-compose-test.yml up --abort-on-container-exit
+        env:
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          JWT_LIFETIME: 1d
+          MONGO_URI: mongodb://gogo-mongo-test:27017/gogo-testdb
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          GOOGLE_REDIRECT_URL: ${{ secrets.GOOGLE_REDIRECT_URL }}
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
