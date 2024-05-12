@@ -1,4 +1,4 @@
-import { Tuple, combineReducers, configureStore } from '@reduxjs/toolkit'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import userReducer from './userReducer/userReducer.js'
 import appReducer from './appReducer/appReducer.js'
 import { loggerMiddleware } from './middleware.js'
