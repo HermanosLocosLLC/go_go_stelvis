@@ -5,6 +5,7 @@ const config: Config = {
   testEnvironment: 'node',
   setupFilesAfterEnv: ['<rootDir>/src/test/setup.ts'],
   moduleFileExtensions: ['ts', 'js', 'json'],
+  testPathIgnorePatterns: ['<rootDir>/node_modules', '<rootDir>/dist'],
 }
 
 export default config
