@@ -16,7 +16,7 @@ declare global {
 let mongo: any
 
 beforeAll(async () => {
-  process.env.JWT_KEY = 'derpdeedpp'
+  process.env.JWT_SECRET = 'derpdeedpp'
   process.env.JWT_LIFETIME = '60s'
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 

@@ -12,7 +12,7 @@
     "docker-build": "docker build -t seantokuzo/gogo-server .",
     "docker-push": "docker push seantokuzo/gogo-server",
     "start": "NODE_ENV=production node ./dist/server.js",
-    "test": "NODE_ENV=test jest --verbose --color --detectOpenHandles && node --expose-gc ./node_modules/.bin/jest --runInBand --logHeapUsage",
+    "test": "NODE_ENV=test jest --verbose --color --detectOpenHandles",
     "test:mem": "NODE_ENV=test node --expose-gc ./node_modules/.bin/jest -w=1 --logHeapUsage --verbose --color",
     "test:watch": "NODE_ENV=test jest --watchAll --no-cache"
   },

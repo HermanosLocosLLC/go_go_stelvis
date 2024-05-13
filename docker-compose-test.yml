@@ -1,17 +1,18 @@
-# name: 'gogo-test'
+name: 'gogo-test'
 # version: '3'
 services:
-  # gogo-client-test:
-  #   container_name: gogo-client-test
-  #   image: seantokuzo/gogo-client
-  #   ports:
-  #     - '5150:5150'
-  #   volumes:
-  #     - ./client:/app
-  #     - client_node_modules_test:/app/node_modules
-  #   depends_on:
-  #     - gogo-server-test
-  #   command: npm run test
+  gogo-client-test:
+    container_name: gogo-client-test
+    image: seantokuzo/gogo-client
+    ports:
+      - '5150:5150'
+    volumes:
+      - ./client:/app
+      - client_node_modules_test:/app/node_modules
+    depends_on:
+      gogo-server-test:
+        condition: service_completed_successfully
+    command: npm run test
 
   gogo-server-test:
     container_name: gogo-server-test
@@ -32,7 +33,7 @@ services:
       - server_node_modules_test:/app/node_modules
     depends_on:
       - gogo-mongo-test
-    command: npm run test:mem
+    command: npm run test
 
   gogo-mongo-test:
     container_name: gogo-mongo-test
@@ -48,5 +49,5 @@ services:
 
 volumes:
   mongo-test-volume:
-  # client_node_modules_test:
+  client_node_modules_test:
   server_node_modules_test:
