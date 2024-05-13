@@ -1,5 +1,5 @@
 # name: 'gogo-test'
-version: '3'
+# version: '3'
 services:
   # gogo-client-test:
   #   container_name: gogo-client-test
@@ -11,7 +11,7 @@ services:
   #     - client_node_modules_test:/app/node_modules
   #   depends_on:
   #     - gogo-server-test
-  #   command: npm run dev
+  #   command: npm run test
 
   gogo-server-test:
     container_name: gogo-server-test
@@ -32,7 +32,7 @@ services:
       - server_node_modules_test:/app/node_modules
     depends_on:
       - gogo-mongo-test
-    command: npm run test
+    command: npm run test:mem
 
   gogo-mongo-test:
     container_name: gogo-mongo-test
