@@ -1,11 +1,10 @@
 import { useEffect } from 'react'
-import styles from './LandingPage.module.scss'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../store/store'
+// import styles from './LandingPage.module.scss'
 import { useNavigate } from 'react-router-dom'
+import { useAppSelector } from '../../hooks/useRedux'
 
 const LandingPage = () => {
-  const user = useSelector((state: RootState) => state.user)
+  const user = useAppSelector((state) => state.user)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -16,7 +15,8 @@ const LandingPage = () => {
   }, [user])
 
   return (
-    <main className={styles.landingPage}>
+    // <main className={styles.landingPage} data-testid='container'>
+    <main data-testid='container'>
       <p>Landing Page</p>
       <p>Landing Page</p>
       <p>Landing Page</p>
