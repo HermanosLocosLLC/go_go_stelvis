@@ -1,0 +1,18 @@
+# Set Node version
+FROM node:20.12.2
+
+# Set the working directory
+WORKDIR /usr/src/app
+
+COPY ./package.json .
+COPY ./client/package*.json ./client/
+COPY ./server/package*.json ./server/
+
+# Install root packages
+RUN cd server && npm install
+
+# Install client packages
+RUN cd client && npm install
+
+COPY ./client ./client
+COPY ./server ./server

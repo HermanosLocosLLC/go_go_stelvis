@@ -11,9 +11,8 @@ const config: Config = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   moduleNameMapper: {
-    '\\.(s?css)$': '<rootDir>/test/config/scssStub.js',
+    '\\.(s?css)$': 'identity-obj-proxy',
   },
-  // resolver: '',
 }
 
 export default config
