@@ -8,12 +8,15 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 5150,
     // strictPort: true,
-    https: false,
+    // https: false,
     hmr: {
       protocol: 'ws',
       port: 5150,
       host: '0.0.0.0',
     },
+    proxy: {
+      '/api': 'http://localhost:3000'
+    }
   },
   build: {
     outDir: 'build',

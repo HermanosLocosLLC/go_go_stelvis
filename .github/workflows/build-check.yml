@@ -8,10 +8,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-      - name: Pull Client Docker Image
-        run: docker pull seantokuzo/gogo-client
-      - name: Pull Server Docker Image
-        run: docker pull seantokuzo/gogo-server
+      - name: Pull Docker Image
+        run: docker pull seantokuzo/gogo-dev
       - name: Run Unit Tests
         run: TEST_CMD=test docker-compose -f docker-compose-test.yml up --abort-on-container-exit
         env:

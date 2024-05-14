@@ -1,7 +1,8 @@
 import axios, { AxiosError } from 'axios'
 
 const authFetch = axios.create({
-  baseURL: 'http://localhost:3000/api/v1/auth',
+  baseURL: '/api/v1/auth',
+  // baseURL: 'http://localhost:3000/api/v1/auth',
   withCredentials: true,
 })
 
