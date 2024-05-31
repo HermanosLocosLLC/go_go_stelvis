@@ -1,0 +1,28 @@
+name: 'gogo-lint'
+services:
+  gogo-lint:
+    container_name: gogo-lint
+    image: seantokuzo/gogo-dev
+    ports:
+      - 3333:3333
+    environment:
+      - JWT_SECRET=poopityscoopityDERPDEEDOO
+      - JWT_LIFETIME=1d
+      - MONGO_URI=mongodb://gogo-mongo-test:27017/gogo-testdb
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - GOOGLE_REDIRECT_URL=${GOOGLE_REDIRECT_URL}
+      - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - NODE_ENV=test
+      - LINT_COMMAND=${LINT_COMMAND}
+    volumes:
+      - ./client:/usr/src/app/client
+      - ./:/usr/src/app
+      - client_test_node_modules:/usr/src/app/client/node_modules
+      - server_test_node_modules:/usr/src/app/node_modules
+    command: npm run ${LINT_COMMAND}
+
+volumes:
+  client_test_node_modules:
+  server_test_node_modules:

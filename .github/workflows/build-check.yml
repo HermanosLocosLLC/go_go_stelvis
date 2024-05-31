@@ -11,7 +11,7 @@ jobs:
       - name: Pull Docker Image
         run: docker pull seantokuzo/gogo-dev
       - name: Run Unit Tests
-        run: TEST_CMD=test docker compose -f docker-compose-test.yml up --abort-on-container-exit
+        run: TEST_CMD=test:silent docker compose -f docker-compose-test.yml up --abort-on-container-exit
         env:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           JWT_LIFETIME: 1d
