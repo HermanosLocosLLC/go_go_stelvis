@@ -106,3 +106,6 @@ cypress/videos/
 
 # artwork
 .design
+
+#temporary files
+zderp*
