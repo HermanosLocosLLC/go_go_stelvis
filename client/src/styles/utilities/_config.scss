@@ -24,7 +24,9 @@
 }
 
 @mixin bs-lg {
-  box-shadow: 6px 6px 10px rgba($dark, 0.5), 3px 3px 7px rgba($dark, 0.25);
+  box-shadow:
+    6px 6px 10px rgba($dark, 0.5),
+    3px 3px 7px rgba($dark, 0.25);
 }
 
 @mixin bs-md {
@@ -38,6 +40,8 @@
 $default-bs: 5px 5px 7px rgba($dark, 0.75);
 
 @mixin emboss($color: $light, $s1: 8px, $s2: 10px, $bs: $default-bs) {
-  box-shadow: inset calc($s1 * -1) calc($s1 * -1) $s2 darken($color, 25%),
-    inset $s1 $s1 $s2 lighten($color, 10%), $bs;
+  box-shadow:
+    inset calc($s1 * -1) calc($s1 * -1) $s2 darken($color, 25%),
+    inset $s1 $s1 $s2 lighten($color, 10%),
+    $bs;
 }

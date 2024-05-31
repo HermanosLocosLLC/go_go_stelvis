@@ -1,16 +1,16 @@
-import React, { PropsWithChildren } from 'react'
-import { render } from '@testing-library/react'
-import type { RenderOptions } from '@testing-library/react'
-import { Provider } from 'react-redux'
-import { setupStore } from '../store/store.ts'
-import type { AppStore, RootState } from '../store/store.ts'
+import React, { PropsWithChildren } from 'react';
+import { render } from '@testing-library/react';
+import type { RenderOptions } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { setupStore } from '../store/store.ts';
+import type { AppStore, RootState } from '../store/store.ts';
 // import { BrowserRouter } from 'react-router-dom'
 
 // This type interface extends the default options for render from RTL, as well
 // as allows the user to specify other things such as initialState, store.
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
-  preloadedState?: Partial<RootState>
-  store?: AppStore
+  preloadedState?: Partial<RootState>;
+  store?: AppStore;
 }
 
 export function renderWithProviders(
@@ -22,12 +22,12 @@ export function renderWithProviders(
     ...renderOptions
   }: ExtendedRenderOptions = {},
 ) {
-  function Wrapper({ children }: PropsWithChildren<{}>): JSX.Element {
+  function Wrapper({ children }: PropsWithChildren<object>): JSX.Element {
     return (
       // <BrowserRouter>
       <Provider store={store}>{children}</Provider>
       // </BrowserRouter>
-    )
+    );
   }
-  return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) }
+  return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
 }

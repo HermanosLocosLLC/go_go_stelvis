@@ -1,18 +1,18 @@
-import { AlertTypes } from '../../store/appReducer/appTypes'
+import { AlertTypes } from '../../store/appReducer/appTypes';
 
-import styles from './Alert.module.scss'
+import styles from './Alert.module.scss';
 
 type Props = {
-  message: string
-  type: AlertTypes | ''
-}
+  message: string;
+  type: AlertTypes | '';
+};
 
 const Alert = ({ message, type }: Props) => {
   return (
     <div className={`${styles.alertContainer} ${styles[type]}`}>
       <p className={styles.alertText}>{message}</p>
     </div>
-  )
-}
+  );
+};
 
-export default Alert
+export default Alert;

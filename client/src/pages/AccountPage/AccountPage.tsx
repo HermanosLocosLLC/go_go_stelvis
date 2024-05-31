@@ -1,7 +1,7 @@
-import styles from './AccountPage.module.scss'
+import styles from './AccountPage.module.scss';
 
 const AccountPage = () => {
-  return <main className={styles.page}>AccountPage</main>
-}
+  return <main className={styles.page}>AccountPage</main>;
+};
 
-export default AccountPage
+export default AccountPage;

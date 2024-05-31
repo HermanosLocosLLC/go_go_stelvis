@@ -1,20 +1,20 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import {
   AlertPayload,
   AlertTypes,
   DarkModePayload,
   ToggleSideNavbarPayload,
-} from './appTypes'
-import { SerializedError } from '../../types/serializedError'
+} from './appTypes';
+import { SerializedError } from '../../types/serializedError';
 
 interface AppState {
-  isLoading: boolean
-  darkMode: boolean
-  sideNavbarOpen: boolean | 'default'
-  isAlert: boolean
-  alertMessage: string
-  alertType: AlertTypes | ''
-  errors: SerializedError[]
+  isLoading: boolean;
+  darkMode: boolean;
+  sideNavbarOpen: boolean | 'default';
+  isAlert: boolean;
+  alertMessage: string;
+  alertType: AlertTypes | '';
+  errors: SerializedError[];
 }
 
 const initialState: AppState = {
@@ -25,36 +25,36 @@ const initialState: AppState = {
   alertMessage: '',
   alertType: '',
   errors: [],
-}
+};
 
 export const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    startLoading: (state, _action: PayloadAction): AppState => {
-      state.isLoading = true
-      return state
+    startLoading: (state): AppState => {
+      state.isLoading = true;
+      return state;
     },
-    stopLoading: (state, _action: PayloadAction): AppState => {
-      state.isLoading = false
-      return state
+    stopLoading: (state): AppState => {
+      state.isLoading = false;
+      return state;
     },
     toggleDarkMode: (
       state,
       action: PayloadAction<DarkModePayload>,
     ): AppState => {
-      state.darkMode = action.payload.darkMode || !state.darkMode
-      return state
+      state.darkMode = action.payload.darkMode || !state.darkMode;
+      return state;
     },
     showAlert: (state, action: PayloadAction<AlertPayload>): AppState => {
-      state.isAlert = true
-      state.alertType = action.payload.alertType
-      state.alertMessage = action.payload.alertMessage
-      return state
+      state.isAlert = true;
+      state.alertType = action.payload.alertType;
+      state.alertMessage = action.payload.alertMessage;
+      return state;
     },
-    clearAlert: (state, _action: PayloadAction): AppState => {
-      state.isAlert = false
-      return state
+    clearAlert: (state): AppState => {
+      state.isAlert = false;
+      return state;
     },
     toggleSideNavbar: (
       state,
@@ -64,21 +64,21 @@ export const appSlice = createSlice({
         action.payload?.type === 'close'
           ? false
           : action.payload?.type === 'open' ||
-            state.sideNavbarOpen === 'default'
-          ? true
-          : !state.sideNavbarOpen
-      return state
+              state.sideNavbarOpen === 'default'
+            ? true
+            : !state.sideNavbarOpen;
+      return state;
     },
     setErrors: (state, action: PayloadAction<SerializedError[]>) => {
-      state.errors = action.payload
-      return state
+      state.errors = action.payload;
+      return state;
     },
     clearErrors: (state) => {
-      state.errors = []
-      return state
+      state.errors = [];
+      return state;
     },
   },
-})
+});
 
 export const {
   startLoading,
@@ -89,5 +89,5 @@ export const {
   toggleSideNavbar,
   setErrors,
   clearErrors,
-} = appSlice.actions
-export default appSlice.reducer
+} = appSlice.actions;
+export default appSlice.reducer;

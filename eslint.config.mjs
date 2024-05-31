@@ -41,9 +41,8 @@ export default [
   {
     name: 'typescript-eslint overrides',
     rules: {
-      // TODO - do we want these rules?
       '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/no-unused-vars': 'off',
     },
   },
   // React Recommended Rules
@@ -78,6 +77,7 @@ export default [
       'react/jsx-uses-react': 'error',
       'react/jsx-uses-vars': 'error',
       'react/react-in-jsx-scope': 'off',
+      'react/prop-types': 'off',
     },
     settings: {
       react: {

@@ -1,13 +1,13 @@
-import { Link } from 'react-router-dom'
-import styles from './SideNavbar.module.scss'
-import { RootState } from '../../store/store'
-import { toggleSideNavbar } from '../../store/appReducer/appReducer'
-import gogoLogo from '../../assets/travel-icon-noBg.png'
-import { useAppDispatch, useAppSelector } from '../../hooks/useRedux'
+import { Link } from 'react-router-dom';
+import styles from './SideNavbar.module.scss';
+import { RootState } from '../../store/store';
+import { toggleSideNavbar } from '../../store/appReducer/appReducer';
+import gogoLogo from '../../assets/travel-icon-noBg.png';
+import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 
 const SideNavbar = () => {
-  const { sideNavbarOpen } = useAppSelector((state: RootState) => state.app)
-  const dispatch = useAppDispatch()
+  const { sideNavbarOpen } = useAppSelector((state: RootState) => state.app);
+  const dispatch = useAppDispatch();
 
   return (
     <>
@@ -39,7 +39,7 @@ const SideNavbar = () => {
         ></div>
       )}
     </>
-  )
-}
+  );
+};
 
-export default SideNavbar
+export default SideNavbar;

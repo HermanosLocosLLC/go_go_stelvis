@@ -1,20 +1,20 @@
-import request from 'supertest'
-import { app } from '../../app'
+import request from 'supertest';
+import { app } from '../../app';
 
-const uploadPfpUrl = '/api/v1/user/upload-pfp'
+const uploadPfpUrl = '/api/v1/user/upload-pfp';
 
 it('Fails when not logged in', async () => {
-  await request(app)
-    .post(uploadPfpUrl)
-    .send()
-    .expect(401)
-})
+  const { status } = await request(app).post(uploadPfpUrl).send();
+
+  expect(status).toEqual(401);
+});
 
 it('Fails if no image sent in request', async () => {
-  const { cookie } = await global.login()
-  await request(app)
+  const { cookie } = await global.login();
+  const { status } = await request(app)
     .post(uploadPfpUrl)
     .set('Cookie', cookie!)
-    .send()
-    .expect(400)
-})
+    .send();
+
+  expect(status).toEqual(400);
+});
