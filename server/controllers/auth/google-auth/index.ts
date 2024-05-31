@@ -1,3 +1,3 @@
-import { googleLogin } from './google-login'
+import { googleLogin } from './google-login';
 
-export { googleLogin }
+export { googleLogin };

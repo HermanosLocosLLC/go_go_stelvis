@@ -1,17 +1,17 @@
-import { Route, Routes } from 'react-router-dom'
-import LandingPage from './pages/LandingPage/LandingPage'
-import Protected from './pages/Protected/Protected'
-import HomePage from './pages/HomePage/HomePage'
-import AccountPage from './pages/AccountPage/AccountPage'
-import { useEffect } from 'react'
-import { getCurrentUser } from './store/userReducer/userReducer'
-import Loading from './components/Loading/Loading'
-import Alert from './components/Alert/Alert'
-import LoginPage from './pages/LoginPage/LoginPage'
-import Header from './components/Header/Header'
-import SideNavbar from './components/SideNavbar/SideNavbar'
-import { useAppDispatch, useAppSelector } from './hooks/useRedux'
-import { nanoid } from '@reduxjs/toolkit'
+import { Route, Routes } from 'react-router-dom';
+import LandingPage from './pages/LandingPage/LandingPage';
+import Protected from './pages/Protected/Protected';
+import HomePage from './pages/HomePage/HomePage';
+import AccountPage from './pages/AccountPage/AccountPage';
+import { useEffect } from 'react';
+import { getCurrentUser } from './store/userReducer/userReducer';
+import Loading from './components/Loading/Loading';
+import Alert from './components/Alert/Alert';
+import LoginPage from './pages/LoginPage/LoginPage';
+import Header from './components/Header/Header';
+import SideNavbar from './components/SideNavbar/SideNavbar';
+import { useAppDispatch, useAppSelector } from './hooks/useRedux';
+import { nanoid } from '@reduxjs/toolkit';
 
 function App() {
   const {
@@ -21,15 +21,15 @@ function App() {
     alertType,
     sideNavbarOpen,
     errors,
-  } = useAppSelector((state) => state.app)
+  } = useAppSelector((state) => state.app);
 
-  const { loading } = useAppSelector((state) => state.user)
-  const dispatch = useAppDispatch()
+  const { loading } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getCurrentUser())
+    dispatch(getCurrentUser());
     // eslint-disable-next-line
-  }, [])
+  }, []);
 
   return (
     <>
@@ -50,7 +50,7 @@ function App() {
         <Route path='/login' element={<LoginPage />} />
       </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

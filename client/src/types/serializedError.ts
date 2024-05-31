@@ -1,4 +1,4 @@
 export interface SerializedError {
-  message: string
-  param?: string
+  message: string;
+  param?: string;
 }

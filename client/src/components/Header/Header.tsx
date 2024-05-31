@@ -1,59 +1,59 @@
-import { GiHamburgerMenu } from 'react-icons/gi'
-import { FaUser } from 'react-icons/fa'
+import { GiHamburgerMenu } from 'react-icons/gi';
+import { FaUser } from 'react-icons/fa';
 
-import styles from './Header.module.scss'
-import { RootState } from '../../store/store'
+import styles from './Header.module.scss';
+import { RootState } from '../../store/store';
 import {
   clearAlert,
   showAlert,
   startLoading,
   stopLoading,
   toggleSideNavbar,
-} from '../../store/appReducer/appReducer'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { authFetch } from '../../utils/authFetch'
-import { logoutUser } from '../../store/userReducer/userReducer'
-import { useAppDispatch, useAppSelector } from '../../hooks/useRedux'
+} from '../../store/appReducer/appReducer';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { authFetch } from '../../utils/authFetch';
+import { logoutUser } from '../../store/userReducer/userReducer';
+import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 
 const Header = () => {
-  const [showUserMenu, setShowUserMenu] = useState(false)
-  const dispatch = useAppDispatch()
-  const user = useAppSelector((state: RootState) => state.user)
-  const navigate = useNavigate()
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state: RootState) => state.user);
+  const navigate = useNavigate();
 
   const handleNavToLogin = () => {
-    setShowUserMenu(false)
-    navigate('/login')
-  }
+    setShowUserMenu(false);
+    navigate('/login');
+  };
 
   const handleLogout = async () => {
-    dispatch(startLoading())
+    dispatch(startLoading());
     try {
-      await authFetch.post('/logout')
-      setShowUserMenu(false)
-      dispatch(logoutUser())
+      await authFetch.post('/logout');
+      setShowUserMenu(false);
+      dispatch(logoutUser());
     } catch (err) {
       dispatch(
         showAlert({
           alertMessage: 'Something went wrong',
           alertType: 'danger',
         }),
-      )
+      );
       setTimeout(() => {
-        dispatch(clearAlert())
-      }, 2500)
+        dispatch(clearAlert());
+      }, 2500);
     }
-    dispatch(stopLoading())
-  }
+    dispatch(stopLoading());
+  };
 
   const userMenuBtn = (clickHandler: () => void, text: string) => {
     return (
       <button onClick={clickHandler} className={styles.userMenuLink}>
         {text}
       </button>
-    )
-  }
+    );
+  };
 
   return (
     <header className={styles.headerContainer}>
@@ -88,7 +88,7 @@ const Header = () => {
         </div>
       )}
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

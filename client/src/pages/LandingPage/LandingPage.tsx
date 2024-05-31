@@ -1,18 +1,18 @@
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useAppSelector } from '../../hooks/useRedux'
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/useRedux';
 
-import styles from './LandingPage.module.scss'
+import styles from './LandingPage.module.scss';
 
 const LandingPage = () => {
-  const user = useAppSelector((state) => state.user)
-  const navigate = useNavigate()
+  const user = useAppSelector((state) => state.user);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user.email) {
-      navigate('/')
+      navigate('/');
     }
-  }, [user])
+  }, [user]);
 
   return (
     <main className={styles.landingPage}>
@@ -21,7 +21,7 @@ const LandingPage = () => {
       <p>Landing Page</p>
       <p>Landing Page</p>
     </main>
-  )
-}
+  );
+};
 
-export default LandingPage
+export default LandingPage;

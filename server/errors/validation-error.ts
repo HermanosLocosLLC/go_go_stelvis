@@ -1,13 +1,13 @@
 export class ValidationError extends Error {
-  msg: string
-  param: string
+  msg: string;
+  param: string;
 
   constructor(msg: string, param: string) {
-    super(msg)
+    super(msg);
 
-    this.msg = msg
-    this.param = param
+    this.msg = msg;
+    this.param = param;
 
-    Object.setPrototypeOf(this, ValidationError.prototype)
+    Object.setPrototypeOf(this, ValidationError.prototype);
   }
 }

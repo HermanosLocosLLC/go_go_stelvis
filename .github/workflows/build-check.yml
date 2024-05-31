@@ -2,6 +2,15 @@ name: build-tests
 on:
   pull_request:
 jobs:
+  linting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Pull Docker Image
+        run: docker pull seantokuzo/gogo-dev
+      - name: Run Linting
+        run: LINT_COMMAND=lint docker compose -f docker-compose-lint.yml up --abort-on-container-exit
   unit-testing:
     runs-on: ubuntu-latest
     environment: CI

@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,8 +15,8 @@ export default defineConfig({
       host: '0.0.0.0',
     },
     proxy: {
-      '/api': 'http://localhost:3000'
-    }
+      '/api': 'http://localhost:3000',
+    },
   },
   build: {
     outDir: 'build',
@@ -27,19 +27,19 @@ export default defineConfig({
 
         assetFileNames: ({ name }) => {
           if (/\.(gif|jpe?g|png|svg)$/.test(name ?? '')) {
-            return 'assets/images/[name]-[hash][extname]'
+            return 'assets/images/[name]-[hash][extname]';
           }
 
           if (/\.s?css$/.test(name ?? '')) {
-            return 'assets/css/[name]-[hash][extname]'
+            return 'assets/css/[name]-[hash][extname]';
           }
 
           // default value
           // ref: https://rollupjs.org/guide/en/#outputassetfilenames
-          return 'assets/[name]-[hash][extname]'
+          return 'assets/[name]-[hash][extname]';
         },
       },
     },
   },
   plugins: [react()],
-})
+});

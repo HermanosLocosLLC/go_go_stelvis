@@ -1,4 +1,4 @@
-import styles from './HomePage.module.scss'
+import styles from './HomePage.module.scss';
 
 const HomePage = () => {
   return (
@@ -7,7 +7,7 @@ const HomePage = () => {
       <div className={styles.homePageCard}></div>
       <div className={styles.homePageCard}></div>
     </main>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;

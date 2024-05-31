@@ -14,7 +14,9 @@
   background-color: darken($light, 2%);
   border: 3px solid $dark;
   border-radius: 5px;
-  box-shadow: 4px 4px 7px rgba($dark, 0.8), 6px 6px 13px rgba($dark, 0.2);
+  box-shadow:
+    4px 4px 7px rgba($dark, 0.8),
+    6px 6px 13px rgba($dark, 0.2);
 }
 
 .input {

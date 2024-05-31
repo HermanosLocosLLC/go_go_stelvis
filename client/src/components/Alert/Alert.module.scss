@@ -16,20 +16,26 @@
 
 .success {
   background-color: $green;
-  box-shadow: inset -8px -8px 10px darken($green, 25%),
-    inset 8px 8px 10px lighten($green, 10%), 5px 5px 7px rgba($dark, 0.75);
+  box-shadow:
+    inset -8px -8px 10px darken($green, 25%),
+    inset 8px 8px 10px lighten($green, 10%),
+    5px 5px 7px rgba($dark, 0.75);
 }
 
 .danger {
   background-color: lighten($red, 5%);
-  box-shadow: inset -8px -8px 10px darken($red, 25%),
-    inset 8px 8px 10px lighten($red, 10%), 5px 5px 7px rgba($dark, 0.75);
+  box-shadow:
+    inset -8px -8px 10px darken($red, 25%),
+    inset 8px 8px 10px lighten($red, 10%),
+    5px 5px 7px rgba($dark, 0.75);
 }
 
 .plain {
   background-color: darken($light, 25%);
-  box-shadow: inset -8px -8px 10px darken($light, 50%),
-    inset 8px 8px 10px darken($light, 15%), 5px 5px 7px rgba($dark, 0.75);
+  box-shadow:
+    inset -8px -8px 10px darken($light, 50%),
+    inset 8px 8px 10px darken($light, 15%),
+    5px 5px 7px rgba($dark, 0.75);
 }
 
 .alertText {

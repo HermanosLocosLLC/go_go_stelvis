@@ -1,4 +1,4 @@
-import type { Config } from 'jest'
+import type { Config } from 'jest';
 
 const config: Config = {
   preset: 'ts-jest',
@@ -13,6 +13,6 @@ const config: Config = {
   moduleNameMapper: {
     '\\.(s?css)$': 'identity-obj-proxy',
   },
-}
+};
 
-export default config
+export default config;
