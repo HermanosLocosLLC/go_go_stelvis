@@ -6,9 +6,8 @@
   "scripts": {
     "dev": "NODE_ENV=development vite",
     "build": "tsc && vite build",
-    "docker-build": "docker build -t seantokuzo/gogo-client .",
-    "docker-push": "docker push seantokuzo/gogo-client",
-    "test": "NODE_ENV=test jest --verbose --colors"
+    "test": "NODE_ENV=test jest --verbose --colors",
+    "test-mem": "NODE_ENV=test node --expose-gc ./node_modules/.bin/jest -w=1 --logHeapUsage --verbose --colors"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.3",

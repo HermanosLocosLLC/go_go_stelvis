@@ -1,31 +1,11 @@
 name: 'gogo-dev'
 version: '3'
 services:
-  # gogo-client-dev:
-  #   container_name: gogo-client-dev
-  #   image: seantokuzo/gogo-client
-  #   ports:
-  #     - '5150:5150'
-  #   volumes:
-      
-  #   depends_on:
-  #     gogo-server-dev:
-  #       condition: service_healthy
-  #   command: npm run dev
-
   gogo-dev:
     container_name: gogo-dev
     image: seantokuzo/gogo-dev
     ports:
       - 5150:5150
-    # healthcheck:
-    #   test: curl -f http://localhost:3000/api/v1/user/ || exit 1
-    #   interval: 1m30s
-    #   timeout: 10s
-    #   retries: 3
-    #   start_period: 40s
-    #   start_interval: 5s
-    # network_mode: host
     environment:
       - JWT_SECRET=poopityscoopityDERPDEEDOO
       - JWT_LIFETIME=1d
@@ -37,9 +17,9 @@ services:
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
     volumes:
       - ./client:/usr/src/app/client
+      - ./:/usr/src/app
       - client_node_modules:/usr/src/app/client/node_modules
-      - ./server:/usr/src/app/server
-      - server_node_modules:/usr/src/app/server/node_modules
+      - server_node_modules:/usr/src/app/node_modules
     depends_on:
       - gogo-mongo-dev
     command: npm run dev

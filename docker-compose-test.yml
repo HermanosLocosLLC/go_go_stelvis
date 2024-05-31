@@ -1,20 +1,7 @@
 name: 'gogo-test'
-# version: '3'
 services:
-  # gogo-client-test:
-  #   container_name: gogo-client-test
-  #   image: seantokuzo/gogo-client
-  #   ports:
-  #     - '5150:5150'
-  #   volumes:
-  #     - ./client:/app
-  #     - client_node_modules_test:/app/node_modules
-  #   depends_on:
-  #     gogo-server-test:
-  #       condition: service_completed_successfully
-  #   command: npm run test
-
-  gogo-server-test:
+  # Application Test Service
+  gogo-test:
     container_name: gogo-test
     image: seantokuzo/gogo-dev
     ports:
@@ -30,13 +17,13 @@ services:
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
     volumes:
       - ./client:/usr/src/app/client
+      - ./:/usr/src/app
       - client_test_node_modules:/usr/src/app/client/node_modules
-      - ./server:/usr/src/app/server
-      - server_test_node_modules:/usr/src/app/server/node_modules
+      - server_test_node_modules:/usr/src/app/node_modules
     depends_on:
       - gogo-mongo-test
     command: npm run test
-
+  # Test MongoDB Service
   gogo-mongo-test:
     container_name: gogo-mongo-test
     image: mongo
