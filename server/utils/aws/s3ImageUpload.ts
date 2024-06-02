@@ -1,9 +1,4 @@
-import {
-  PutObjectAclCommandOutput,
-  PutObjectCommand,
-  S3Client,
-} from '@aws-sdk/client-s3';
-import { InternalError } from '../../errors/internal-error';
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 
 const s3Client = new S3Client({
   region: 'us-west-1',
@@ -13,10 +8,8 @@ const s3Client = new S3Client({
   },
 });
 
-// const params = {
-//   Bucket: 'gogo-stelvis',
-// }
-export const s3ImageUpload = async (params: any) => {
+// TODO type params more accurately
+export const s3ImageUpload = async (params: { [key: string]: string }) => {
   return new Promise<string>((resolve, reject) => {
     const { filename, file } = params;
     const buf = Buffer.from(file.replace(/^data:.+;base64,/, ''), 'base64');
@@ -34,10 +27,11 @@ export const s3ImageUpload = async (params: any) => {
 
     const command = new PutObjectCommand(data);
 
-    s3Client.send(command, (err, data) => {
+    s3Client.send(command, (err, _data) => {
       if (err) {
         reject(err);
       } else {
+        console.log('💥 s3Client.send response data: ', _data);
         resolve(url);
       }
     });

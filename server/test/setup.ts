@@ -12,8 +12,6 @@ declare global {
   function login(): Promise<globalLoginInterface>;
 }
 
-let mongo: any;
-
 beforeAll(async () => {
   process.env.JWT_SECRET = 'derpdeedpp';
   process.env.JWT_LIFETIME = '60s';
@@ -31,13 +29,6 @@ beforeEach(async () => {
   for (const collection of collections) {
     await collection.deleteMany({});
   }
-});
-
-afterAll(async () => {
-  if (mongo) {
-    await mongo.stop();
-  }
-  await mongoose.connection.close();
 });
 
 global.login = async () => {

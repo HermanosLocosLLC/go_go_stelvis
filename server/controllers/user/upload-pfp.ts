@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { BadRequestError } from '../../errors/bad-request-error';
 import { s3ImageUpload } from '../../utils/aws/s3ImageUpload';
 import { InternalError } from '../../errors/internal-error';
