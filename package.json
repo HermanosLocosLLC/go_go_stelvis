@@ -21,7 +21,6 @@
     "test:mem": "concurrently -p \"{name}>\" -n \"server,client\" -c \"red.bold,white.blue.bold\" \"npm run test:server-mem\" \"npm run test:client-mem\"",
     "test:local": "concurrently -p \"{name}>\" -n \"server,client\" -c \"red.bold,white.blue.bold\" \"npm run test:server-local\" \"npm run test:client\"",
     "test:silent": "concurrently -p \"{name}>\" -n \"server,client\" -c \"red.bold,white.blue.bold\" \"jest --silent\" \"cd client && jest --silent\"",
-    "docker-build-check": "bash ./scripts/build-check.sh",
     "docker-build-dev": "docker build -f Dockerfile-dev -t seantokuzo/gogo-dev .",
     "docker-push-dev": "docker push seantokuzo/gogo-dev",
     "docker-dev:hot": "docker compose -f docker-compose-dev.yml up",
@@ -29,6 +28,7 @@
     "docker-lint:trace": "LINT_COMMAND=lint:trace docker compose -f docker-compose-lint.yml up --abort-on-container-exit",
     "docker-lint:fix": "LINT_COMMAND=lint:fix docker compose -f docker-compose-lint.yml up --abort-on-container-exit",
     "docker-test": "TEST_CMD=test docker compose -f docker-compose-test.yml up --abort-on-container-exit",
+    "docker-build-check": "bash ./scripts/build-check.sh",
     "docker-remove-all": "bash ./scripts/docker-remove-all.sh gogo gogo gogo"
   },
   "keywords": [],
