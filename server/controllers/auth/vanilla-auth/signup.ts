@@ -6,7 +6,6 @@ import { BadRequestError } from '../../../errors/bad-request-error';
 import { attachCookie } from '../../../utils/attachCookie';
 import { validateEmail } from '../../../utils/requestValidators/validateEmail';
 import { validatePassword } from '../../../utils/requestValidators/validatePassword';
-import { CustomError } from '../../../errors/custom-error';
 
 const signup = async (req: Request, res: Response) => {
   const { email, password } = req.body;

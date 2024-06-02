@@ -13,7 +13,7 @@ declare global {
   function login(): Promise<globalLoginInterface>;
 }
 
-let mongo: any;
+let mongo: MongoMemoryServer | undefined;
 
 beforeAll(async () => {
   process.env.JWT_SECRET = 'derpdeedpp';

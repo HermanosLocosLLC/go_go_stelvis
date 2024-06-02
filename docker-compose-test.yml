@@ -15,6 +15,7 @@ services:
       - GOOGLE_REDIRECT_URL=${GOOGLE_REDIRECT_URL}
       - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - TEST_COMMAND=${TEST_COMMAND}
     volumes:
       - ./client:/usr/src/app/client
       - ./:/usr/src/app
@@ -22,7 +23,7 @@ services:
       - server_test_node_modules:/usr/src/app/node_modules
     depends_on:
       - gogo-mongo-test
-    command: npm run test
+    command: npm run ${TEST_COMMAND}
   # Test MongoDB Service
   gogo-mongo-test:
     container_name: gogo-mongo-test

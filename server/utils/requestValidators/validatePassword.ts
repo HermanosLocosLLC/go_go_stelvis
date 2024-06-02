@@ -1,6 +1,6 @@
 import { ValidationError } from '../../errors/validation-error';
 
-export const validatePassword = (password: any) => {
+export const validatePassword = (password?: string) => {
   if (!password || typeof password !== 'string') {
     return new ValidationError('Please provide a valid password', 'password');
   }

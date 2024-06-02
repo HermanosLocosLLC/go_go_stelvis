@@ -29,7 +29,7 @@ app.use('/', express.static(path.join(__dirname, '/../client/dist')));
 app.use('/api/v1', apiRouter);
 
 // NOT FOUND ROUTE HANDLER
-app.use((req, res) => {
+app.use((_req, _res) => {
   throw new NotFoundError();
 });
 

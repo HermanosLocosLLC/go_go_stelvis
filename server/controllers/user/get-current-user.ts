@@ -1,6 +1,5 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { CurrentUserRequest } from '../../middlewares/current-user';
-import { NotAuthorizedError } from '../../errors/not-authorized-error';
 import { User } from '../../models/user';
 
 export const getCurrentUser = async (

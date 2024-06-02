@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import { login, signup } from '../controllers/auth/vanilla-auth';
 import logout from '../controllers/auth/logout';
 import { googleLogin } from '../controllers/auth/google-auth';
