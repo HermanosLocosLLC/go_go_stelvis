@@ -31,6 +31,10 @@ beforeEach(async () => {
   }
 });
 
+afterAll(async () => {
+  await mongoose.connection.close();
+});
+
 global.login = async () => {
   const email = 'test@test.com';
   const password = 'ilovetesting789!';
