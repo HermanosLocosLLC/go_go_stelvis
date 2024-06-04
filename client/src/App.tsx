@@ -12,6 +12,8 @@ import Header from './components/Header/Header';
 import SideNavbar from './components/SideNavbar/SideNavbar';
 import { useAppDispatch, useAppSelector } from './hooks/useRedux';
 import { nanoid } from '@reduxjs/toolkit';
+import CountryMap from './components/CountryMap/CountryMap';
+import SimpleMap from './components/SimpleMap/SimpleMap';
 
 function App() {
   const {
@@ -41,14 +43,16 @@ function App() {
         errors.map((err) => (
           <Alert key={nanoid()} message={err.message} type='danger' />
         ))}
-      <Routes>
+      {/* <Routes>
         <Route path='/' element={<Protected />}>
           <Route index element={<HomePage />} />
           <Route path='account' element={<AccountPage />} />
         </Route>
         <Route path='/landing' element={<LandingPage />} />
         <Route path='/login' element={<LoginPage />} />
-      </Routes>
+      </Routes> */}
+      {/* <CountryMap /> */}
+      <SimpleMap />
     </>
   );
 }

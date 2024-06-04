@@ -6,8 +6,9 @@ services:
     ports:
       - 3333:3333
     environment:
-      - JWT_SECRET=poopityscoopityDERPDEEDOO
+      - JWT_SECRET=${JWT_SECRET}
       - JWT_LIFETIME=1d
+      - MAPBOX_TOKEN=${MAPBOX_TOKEN}
       - MONGO_URI=mongodb://gogo-mongo-test:27017/gogo-testdb
       - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
       - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
