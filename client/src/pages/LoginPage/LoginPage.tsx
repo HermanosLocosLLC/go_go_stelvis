@@ -5,6 +5,8 @@ import { loginUser } from '../../store/userReducer/userReducer';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import { clearErrors, setErrors } from '../../store/appReducer/appReducer';
 import { SerializedError } from '../../types/serializedError';
+import { FcGoogle } from 'react-icons/fc';
+import { googleOAuthUrl } from '../../utils/config';
 
 const LoginPage = () => {
   const [login, setLogin] = useState<boolean>(true);
@@ -83,8 +85,8 @@ const LoginPage = () => {
         >
           {login ? 'Not a member? Sign up' : 'Already a member? Login'}
         </p>
-        <a href='https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar&response_type=code&client_id=967020353266-ebsj9vrcf4cgij7mjb5rv8uog4kpfuil.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fv1%2Fauth%2Fgoogle%2Flogin'>
-          Login with Google
+        <a href={googleOAuthUrl} className={styles.googleOAuthLink}>
+          <FcGoogle />
         </a>
       </form>
     </main>
