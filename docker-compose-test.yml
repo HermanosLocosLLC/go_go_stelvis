@@ -9,7 +9,11 @@ services:
     environment:
       - JWT_SECRET=poopityscoopityDERPDEEDOO
       - JWT_LIFETIME=1d
-      - MONGO_URI=mongodb://gogo-mongo-test:27017/gogo-testdb
+      # - MONGO_URI=mongodb://gogo-mongo-test:27017/gogo-testdb
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=gogo-testdb
+      - POSTGRES_PASSWORD=gogo-test
+      - POSTGRES_HOST=gogo-pg-test
       - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
       - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
       - GOOGLE_REDIRECT_URL=${GOOGLE_REDIRECT_URL}
@@ -22,22 +26,35 @@ services:
       - client_test_node_modules:/usr/src/app/client/node_modules
       - server_test_node_modules:/usr/src/app/node_modules
     depends_on:
-      - gogo-mongo-test
+      - gogo-pg-test
+      # - gogo-mongo-test
     command: npm run ${TEST_COMMAND}
-  # Test MongoDB Service
-  gogo-mongo-test:
-    container_name: gogo-mongo-test
-    image: mongo
-    # restart: always
+  # Test Postgres Service
+  gogo-pg-test:
+    container_name: gogo-pg-test
+    image: postgres:16.3
+    restart: always
     ports:
-      - 27017:27017
+      - '5432:5432'
     environment:
-      MONGO_INITDB_DATABASE: gogo-testdb
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=gogo-testdb
+      - POSTGRES_PASSWORD=gogo-pg-test
     volumes:
-      - mongo-test-volume:/data/db
-    command: mongod --quiet --logpath /dev/null
+      - ./scripts/db/postgres/pg_init.sql:/docker-entrypoint-initdb.d/pg_init.sql
+  # Test MongoDB Service
+  # gogo-mongo-test:
+  #   container_name: gogo-mongo-test
+  #   image: mongo
+  #   # restart: always
+  #   ports:
+  #     - 27017:27017
+  #   environment:
+  #     MONGO_INITDB_DATABASE=gogo-mongo-test
+  #   volumes:
+  #     - mongo-test-volume:/data/db
+  #   command: mongod --quiet --logpath /dev/null
 
 volumes:
-  mongo-test-volume:
   client_test_node_modules:
   server_test_node_modules:
