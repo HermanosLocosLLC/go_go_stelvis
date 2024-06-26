@@ -19,6 +19,7 @@ services:
       - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - TEST_COMMAND=${TEST_COMMAND}
+      - TEST_FILE=${TEST_FILE}
     volumes:
       - ./client:/usr/src/app/client
       - ./:/usr/src/app
@@ -26,7 +27,7 @@ services:
       - server_test_node_modules:/usr/src/app/node_modules
     depends_on:
       - gogo-pg-test
-    command: npm run ${TEST_COMMAND}
+    command: npm run ${TEST_COMMAND} ${TEST_FILE}
   # Test Postgres Service
   gogo-pg-test:
     container_name: gogo-pg-test

@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import request from 'supertest';
 import { app } from '../app';
 
@@ -16,24 +15,13 @@ beforeAll(async () => {
   process.env.JWT_SECRET = 'derpdeedpp';
   process.env.JWT_LIFETIME = '60s';
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-
-  const mongoUri = 'mongodb://gogo-mongo-test:27017/gogo-testdb';
-
-  await mongoose.connect(mongoUri, {});
 });
 
 beforeEach(async () => {
   jest.clearAllMocks();
-  const collections = await mongoose.connection.db.collections();
-
-  for (const collection of collections) {
-    await collection.deleteMany({});
-  }
 });
 
-afterAll(async () => {
-  await mongoose.connection.close();
-});
+// afterAll(async () => {});
 
 global.login = async () => {
   const email = 'test@test.com';

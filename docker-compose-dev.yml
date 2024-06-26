@@ -1,18 +1,28 @@
 name: 'gogo-dev'
 version: '3'
 services:
+  # APPLICATION DEV SERVICE
   gogo-dev:
     container_name: gogo-dev
     image: seantokuzo/gogo-dev
     ports:
       - 5150:5150
+      - 3000:3000
     environment:
+      # General env vars
+      - PORT=3000
       - JWT_SECRET=poopityscoopityDERPDEEDOO
       - JWT_LIFETIME=1d
-      - MONGO_URI=mongodb://gogo-mongo-dev:27017/gogo-testdb
+      # Database env vars
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=gogo-devdb
+      - POSTGRES_PASSWORD=gogo-dev
+      - POSTGRES_HOST=gogo-pg-dev
+      # Google OAuth env vars
       - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
       - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
       - GOOGLE_REDIRECT_URL=${GOOGLE_REDIRECT_URL}
+      # AWS env vars
       - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
     volumes:
@@ -21,22 +31,23 @@ services:
       - client_node_modules:/usr/src/app/client/node_modules
       - server_node_modules:/usr/src/app/node_modules
     depends_on:
-      - gogo-mongo-dev
+      - gogo-pg-dev
     command: npm run dev
-
-  gogo-mongo-dev:
-    container_name: gogo-mongo-dev
-    image: mongo
+  # POSTGRES DEV SERVICE
+  gogo-pg-dev:
+    container_name: gogo-pg-dev
+    image: seantokuzo/gogo-pg-dev
     restart: always
     ports:
-      - 27017:27017
+      - '5432:5432'
     environment:
-      MONGO_INITDB_DATABASE: gogo-testdb
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=gogo-devdb
+      - POSTGRES_PASSWORD=gogo-dev
     volumes:
-      - mongo-dev-volume:/data/db
-    command: mongod --quiet --logpath /dev/null
+      - postgres-dev-volume:/var/lib/postgresql/data
 
 volumes:
   client_node_modules:
   server_node_modules:
-  mongo-dev-volume:
+  postgres-dev-volume:

@@ -7,7 +7,7 @@
     "dev": "NODE_ENV=development vite",
     "build": "tsc && vite build",
     "test": "NODE_ENV=test jest --verbose --colors",
-    "test:silent": "NODE_ENV=test jest --silent",
+    "test:silent": "NODE_ENV=test jest --colors --detectOpenHandles  --silent",
     "test-mem": "NODE_ENV=test node --expose-gc ./node_modules/.bin/jest -w=1 --logHeapUsage --verbose --colors"
   },
   "dependencies": {
