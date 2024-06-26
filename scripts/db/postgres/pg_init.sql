@@ -6,14 +6,16 @@ DROP TABLE IF EXISTS comments;
 CREATE TYPE usertypes AS ENUM ('gogo', 'google');
 -- CREATE JOBS TABLE
 CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-    email VARCHAR(100),
+    id SERIAL PRIMARY KEY NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    password VARCHAR(255),
     first_name VARCHAR(50),
     last_name VARCHAR(50),
     pfp VARCHAR(255),
     user_type usertypes,
     access_token VARCHAR(255),
     refresh_token VARCHAR(255),
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );
