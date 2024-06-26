@@ -14,7 +14,6 @@ services:
       - JWT_SECRET=poopityscoopityDERPDEEDOO
       - JWT_LIFETIME=1d
       # Database env vars
-      # - MONGO_URI=mongodb://gogo-mongo-dev:27017/gogo-testdb
       - POSTGRES_USER=postgres
       - POSTGRES_DB=gogo-devdb
       - POSTGRES_PASSWORD=gogo-dev
@@ -33,7 +32,6 @@ services:
       - server_node_modules:/usr/src/app/node_modules
     depends_on:
       - gogo-pg-dev
-      # - gogo-mongo-dev
     command: npm run dev
   # POSTGRES DEV SERVICE
   gogo-pg-dev:
@@ -48,21 +46,8 @@ services:
       - POSTGRES_PASSWORD=gogo-dev
     volumes:
       - postgres-dev-volume:/var/lib/postgresql/data
-  # MONGO DEV SERVICE
-  # gogo-mongo-dev:
-  #   container_name: gogo-mongo-dev
-  #   image: mongo
-  #   restart: always
-  #   ports:
-  #     - 27017:27017
-  #   environment:
-  #     MONGO_INITDB_DATABASE: gogo-testdb
-  #   volumes:
-  #     - mongo-dev-volume:/data/db
-  #   command: mongod --quiet --logpath /dev/null
 
 volumes:
   client_node_modules:
   server_node_modules:
   postgres-dev-volume:
-  # mongo-dev-volume:
