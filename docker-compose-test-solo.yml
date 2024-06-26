@@ -1,0 +1,47 @@
+name: 'gogo-test'
+services:
+  # Application Test Service
+  gogo-test:
+    container_name: gogo-test
+    image: seantokuzo/gogo-dev
+    ports:
+      - 3000:3000
+    environment:
+      - JWT_SECRET=poopityscoopityDERPDEEDOO
+      - JWT_LIFETIME=1d
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=gogo-testdb
+      - POSTGRES_PASSWORD=gogo-test
+      - POSTGRES_HOST=gogo-pg-test
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - GOOGLE_REDIRECT_URL=${GOOGLE_REDIRECT_URL}
+      - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - TEST_COMMAND=${TEST_COMMAND}
+      - TEST_FILE=${TEST_FILE}
+    volumes:
+      - ./client:/usr/src/app/client
+      - ./:/usr/src/app
+      - client_test_node_modules:/usr/src/app/client/node_modules
+      - server_test_node_modules:/usr/src/app/node_modules
+    depends_on:
+      - gogo-pg-test
+    command: npm run ${TEST_COMMAND} ${TEST_FILE}
+  # Test Postgres Service
+  gogo-pg-test:
+    container_name: gogo-pg-test
+    image: postgres:16.3
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=gogo-testdb
+      - POSTGRES_PASSWORD=gogo-pg-test
+    volumes:
+      - ./scripts/db/postgres/pg_init.sql:/docker-entrypoint-initdb.d/pg_init.sql
+
+volumes:
+  client_test_node_modules:
+  server_test_node_modules:
