@@ -1,17 +1,13 @@
 import request from 'supertest';
 import { app } from '../../../app';
-import { User } from '../../../models/user';
+import pgPool from '../../../db/pgPool';
 
 const signupUrl = '/api/v1/auth/gogo/signup';
 
 /*eslint jest/no-disabled-tests: "off" */
 
 describe('🧪 Vanilla-Signup Unit Tests 🧪', () => {
-  it('TODO It is temporary...', () => {
-    expect('TODO').toEqual('TODO');
-  });
-
-  xit('throws an error for invalid emails', async () => {
+  it('throws an error for invalid emails', async () => {
     const { status: status1 } = await request(app)
       .post(signupUrl)
       .send({ email: 'notAnEmail', password: 'validPassword1234!' });
@@ -25,7 +21,7 @@ describe('🧪 Vanilla-Signup Unit Tests 🧪', () => {
     expect(status2).toEqual(400);
   });
 
-  xit('throws an error with invalid password', async () => {
+  it('throws an error with invalid password', async () => {
     // No special character
     const { status: status1 } = await request(app).post(signupUrl).send({
       email: 'test@test.com',
@@ -51,7 +47,7 @@ describe('🧪 Vanilla-Signup Unit Tests 🧪', () => {
     expect(status3).toEqual(400);
   });
 
-  xit('Successfully signs up user and sets cookie', async () => {
+  it('Successfully signs up user and sets cookie', async () => {
     const email = 'test@test.com';
 
     const response = await request(app).post(signupUrl).send({
@@ -61,9 +57,11 @@ describe('🧪 Vanilla-Signup Unit Tests 🧪', () => {
 
     expect(response.status).toEqual(201);
 
-    const user = await User.findOne({ email });
-    expect(user).toBeDefined();
-    expect(user?.email).toEqual(email);
+    console.log('💥 pgPool', pgPool);
+    const query = `SELECT * FROM users WHERE email=$1;`;
+    const { rows } = await pgPool.query(query, [email]);
+    expect(rows[0]).toBeDefined();
+    expect(rows[0].email).toEqual(email);
 
     expect(response.get('Set-Cookie')).toBeDefined();
     expect(response.get('Set-Cookie')![0].split('=')[0]).toEqual('token');
