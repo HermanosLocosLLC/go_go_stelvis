@@ -20,4 +20,4 @@ export const checkEnvVars = () => {
     throw Error('❌ AWS_ACCESS_KEY must be defined');
   if (!process.env.AWS_SECRET_ACCESS_KEY)
     throw Error('❌ AWS_SECRET_ACCESS_KEY must be defined');
-}
+};
