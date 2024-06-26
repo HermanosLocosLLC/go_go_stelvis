@@ -1,21 +1,21 @@
 import path from 'path';
 import express from 'express';
 import 'express-async-errors';
-import cors from 'cors';
+// import cors from 'cors';
 import apiRouter from './routes';
 import { errorHandler } from './middlewares/error-handler';
 import { NotFoundError } from './errors/not-found-error';
 import cookieParser from 'cookie-parser';
-import { clientBaseUrl } from './utils/baseUrls';
+// import { clientBaseUrl } from './utils/baseUrls';
 
 const app = express();
 
-app.use(
-  cors({
-    credentials: true,
-    origin: clientBaseUrl,
-  }),
-);
+// app.use(
+//   cors({
+//     credentials: true,
+//     origin: clientBaseUrl,
+//   }),
+// );
 app.use(express.json());
 app.use(cookieParser());
 
