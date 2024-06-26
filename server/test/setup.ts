@@ -1,5 +1,6 @@
 import request from 'supertest';
 import { app } from '../app';
+import pgPool from '../db/pgPool';
 
 interface globalLoginInterface {
   cookie: string[] | undefined;
@@ -19,6 +20,9 @@ beforeAll(async () => {
 
 beforeEach(async () => {
   jest.clearAllMocks();
+  await pgPool.query('DELETE FROM users;');
+  await pgPool.query('DELETE FROM posts;');
+  await pgPool.query('DELETE FROM comments;');
 });
 
 // afterAll(async () => {});
