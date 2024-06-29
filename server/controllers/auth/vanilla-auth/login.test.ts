@@ -1,33 +1,25 @@
 import request from 'supertest';
 import { app } from '../../../app';
 
-/*eslint jest/no-disabled-tests: "off" */
+const gogoLoginUrl = '/api/v1/auth/gogo/login';
 
 describe('🧪 Vanilla-Login Unit Tests 🧪', () => {
-  it('TODO It is temporary...', () => {
-    expect('TODO').toEqual('TODO');
-  });
-
-  xit('🧪 Fails if either email or password are not provided', async () => {
-    const { status: status1 } = await request(app)
-      .post('/api/v1/auth/gogo/login')
-      .send({
-        email: 'test@test.com',
-      });
+  it('🧪 Fails if either email or password are not provided', async () => {
+    const { status: status1 } = await request(app).post(gogoLoginUrl).send({
+      email: 'test@test.com',
+    });
 
     expect(status1).toEqual(400);
 
-    const { status: status2 } = await request(app)
-      .post('/api/v1/auth/gogo/login')
-      .send({
-        password: 'ilovetesting789',
-      });
+    const { status: status2 } = await request(app).post(gogoLoginUrl).send({
+      password: 'ilovetesting789',
+    });
 
     expect(status2).toEqual(400);
   });
 
-  xit('🧪 Fails if user does not exist', async () => {
-    const { status } = await request(app).post('/api/v1/auth/gogo/login').send({
+  it('🧪 Fails if user does not exist', async () => {
+    const { status } = await request(app).post(gogoLoginUrl).send({
       email: 'nonexistentuser@fail.com',
       password: 'pleaseLetMeIn1234',
     });
@@ -35,8 +27,8 @@ describe('🧪 Vanilla-Login Unit Tests 🧪', () => {
     expect(status).toEqual(400);
   });
 
-  xit('🧪 Fails if passwords do not match', async () => {
-    const { status } = await request(app).post('/api/v1/auth/gogo/login').send({
+  it('🧪 Fails if passwords do not match', async () => {
+    const { status } = await request(app).post(gogoLoginUrl).send({
       username: 'test@test.com',
       password: 'ilovetesting123',
     });
@@ -44,10 +36,10 @@ describe('🧪 Vanilla-Login Unit Tests 🧪', () => {
     expect(status).toEqual(400);
   });
 
-  xit("🧪 Sets cookie 'token' on successful login", async () => {
+  it("🧪 Sets cookie 'token' on successful login", async () => {
     const { email, password } = await global.login();
 
-    const response = await request(app).post('/api/v1/auth/gogo/login').send({
+    const response = await request(app).post(gogoLoginUrl).send({
       email,
       password,
     });

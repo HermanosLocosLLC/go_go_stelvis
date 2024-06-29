@@ -1,14 +1,8 @@
 import request from 'supertest';
 import { app } from '../../app';
 
-/*eslint jest/no-disabled-tests: "off" */
-
 describe('🧪 Logout Unit Tests 🧪', () => {
-  it('TODO It is temporary...', () => {
-    expect('TODO').toEqual('TODO');
-  });
-
-  xit('🧪 Successfully logs out user', async () => {
+  it('🧪 Successfully logs out user', async () => {
     const response = await request(app)
       .post('/api/v1/auth/logout')
       .send()

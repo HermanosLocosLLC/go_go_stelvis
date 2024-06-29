@@ -32,13 +32,12 @@ services:
   gogo-pg-test:
     container_name: gogo-pg-test
     image: postgres:16.3
-    restart: always
     ports:
       - '5432:5432'
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_DB=gogo-testdb
-      - POSTGRES_PASSWORD=gogo-pg-test
+      - POSTGRES_PASSWORD=gogo-test
     volumes:
       - ./scripts/db/postgres/pg_init.sql:/docker-entrypoint-initdb.d/pg_init.sql
 
