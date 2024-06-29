@@ -32,7 +32,6 @@ services:
   gogo-pg-test:
     container_name: gogo-pg-test
     image: postgres:16.3
-    restart: always
     ports:
       - '5432:5432'
     environment:
