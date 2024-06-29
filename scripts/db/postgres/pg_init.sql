@@ -6,8 +6,8 @@ DROP TABLE IF EXISTS travels;
 DROP TABLE IF EXISTS accomodations;
 DROP TABLE IF EXISTS activities;
 DROP TABLE IF EXISTS invitees;
-DROP TABLE IF EXISTS posts;
-DROP TABLE IF EXISTS comments;
+-- DROP TABLE IF EXISTS posts;
+-- DROP TABLE IF EXISTS comments;
 
 CREATE TYPE user_types_enum AS ENUM ('gogo', 'google');
 -- CREATE JOBS TABLE
