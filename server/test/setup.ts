@@ -21,8 +21,12 @@ beforeAll(async () => {
 beforeEach(async () => {
   jest.clearAllMocks();
   await pgPool.query('DELETE FROM users;');
-  await pgPool.query('DELETE FROM posts;');
-  await pgPool.query('DELETE FROM comments;');
+  await pgPool.query('DELETE FROM trips;');
+  await pgPool.query('DELETE FROM destinations;');
+  await pgPool.query('DELETE FROM travels;');
+  await pgPool.query('DELETE FROM accomodations;');
+  await pgPool.query('DELETE FROM activities;');
+  await pgPool.query('DELETE FROM invitees;');
 });
 
 afterAll(async () => {
