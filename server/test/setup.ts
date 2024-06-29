@@ -25,7 +25,9 @@ beforeEach(async () => {
   await pgPool.query('DELETE FROM comments;');
 });
 
-// afterAll(async () => {});
+afterAll(async () => {
+  pgPool.end();
+});
 
 global.login = async () => {
   const email = 'test@test.com';
