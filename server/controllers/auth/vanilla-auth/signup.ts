@@ -35,22 +35,24 @@ const signup = async (req: Request, res: Response) => {
     SELECT * FROM users WHERE email=$1
   `;
   const existingUserValues = [email];
-  const { rows: existingUserResult } = await pgPool.query(
-    existingUserQuery,
-    existingUserValues,
-  );
-  if (existingUserResult[0]) {
+  const {
+    rows: [existingUser],
+  } = await pgPool.query(existingUserQuery, existingUserValues);
+  if (existingUser) {
     throw new BadRequestError('User already exists');
   }
 
   // SIGN UP NEW USER
   const hashedPass = await Password.hashPassword(password);
   const signupQuery = `
-    INSERT INTO users (email, password)
-    VALUES($1, $2);
+    INSERT INTO users (email, password, user_type)
+    VALUES($1, $2, $3)
+    RETURNING id, email, user_type;
   `;
-  const signupValues = [email, hashedPass];
-  const { rows: signupResult } = await pgPool.query(signupQuery, signupValues);
+  const signupValues = [email, hashedPass, 'gogo'];
+  const {
+    rows: [newUser],
+  } = await pgPool.query(signupQuery, signupValues);
   // const newUser = User.build({
   //   email,
   //   password,
@@ -58,10 +60,10 @@ const signup = async (req: Request, res: Response) => {
   // });
   // await newUser.save();
 
-  const jwt = createJwt(signupResult[0].id);
+  const jwt = createJwt(newUser.id);
   attachCookie(res, jwt);
 
-  res.status(201).send(signupResult[0]);
+  res.status(201).send(newUser);
 };
 
 export default signup;

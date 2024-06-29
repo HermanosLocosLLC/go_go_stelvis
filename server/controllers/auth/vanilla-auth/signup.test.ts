@@ -4,8 +4,6 @@ import pgPool from '../../../db/pgPool';
 
 const signupUrl = '/api/v1/auth/gogo/signup';
 
-/*eslint jest/no-disabled-tests: "off" */
-
 describe('🧪 Vanilla-Signup Unit Tests 🧪', () => {
   it('throws an error for invalid emails', async () => {
     const { status: status1 } = await request(app)
@@ -45,6 +43,16 @@ describe('🧪 Vanilla-Signup Unit Tests 🧪', () => {
     });
 
     expect(status3).toEqual(400);
+  });
+
+  it('returns both validation errors for bad email and password', async () => {
+    const response = await request(app).post(signupUrl).send({
+      email: 'derp',
+      password: 'derp',
+    });
+
+    expect(response.status).toEqual(400);
+    expect(response.body.length).toEqual(2);
   });
 
   it('Successfully signs up user and sets cookie', async () => {
