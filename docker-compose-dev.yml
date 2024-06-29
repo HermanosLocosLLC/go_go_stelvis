@@ -44,7 +44,7 @@ services:
       - POSTGRES_DB=gogo-devdb
       - POSTGRES_PASSWORD=gogo-dev
     volumes:
-      - ./scripts/db/postgres/pg_init.sql:/docker-entrypoint-initdb.d/pg_init.sql
+      - ./scripts/db/postgres/:/docker-entrypoint-initdb.d/
       - postgres-dev-volume:/var/lib/postgresql/data
 
 volumes:
