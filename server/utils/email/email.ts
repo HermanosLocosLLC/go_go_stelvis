@@ -28,7 +28,7 @@ export class Email {
     this.from = process.env.GOOGLE_SMTP_EMAIL!;
   }
 
-  createTransport() {
+  private createTransport() {
     if (process.env.NODE_ENV === 'production') {
       // Production Email
       return nodemailer.createTransport({
@@ -50,7 +50,7 @@ export class Email {
     });
   }
 
-  async send(template: Templates, subject: Subjects) {
+  private async send(template: Templates, subject: Subjects) {
     // 1) RENDER HTML BASED ON A PUG TEMPLATE
     const html = pug.renderFile(`${__dirname}/templates/${template}.pug`, {
       firstName: this.firstName,
