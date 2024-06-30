@@ -1,12 +1,11 @@
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { BadRequestError } from '../../errors/bad-request-error';
 import { s3ImageUpload } from '../../utils/aws/s3ImageUpload';
 import { InternalError } from '../../errors/internal-error';
-import { CurrentUserRequest } from '../../middlewares/current-user';
 import { User } from '../../models/user';
 import { NotAuthorizedError } from '../../errors/not-authorized-error';
 
-export const uploadPfp = async (req: CurrentUserRequest, res: Response) => {
+export const uploadPfp = async (req: Request, res: Response) => {
   const { image } = req.body;
   if (!image) throw new BadRequestError('Please upload a proper image');
 
