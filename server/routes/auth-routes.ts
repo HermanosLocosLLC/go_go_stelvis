@@ -1,9 +1,9 @@
-import express from 'express';
+import { Router } from 'express';
 import { login, signup } from '../controllers/auth/vanilla-auth';
 import logout from '../controllers/auth/logout';
 import { googleLogin } from '../controllers/auth/google-auth';
 
-const router = express.Router();
+const router = Router();
 
 // VANILLA AUTH
 router.post('/gogo/login', login);
