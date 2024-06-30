@@ -5,9 +5,9 @@ import { BadRequestError } from '../../../errors/bad-request-error';
 import { attachCookie } from '../../../utils/attachCookie';
 import { validateEmail } from '../../../utils/requestValidators/validateEmail';
 import { validatePassword } from '../../../utils/requestValidators/validatePassword';
-import { Password } from './utils/password';
+import { Password } from '../utils/password';
 import pgPool from '../../../db/pgPool';
-import { createJwt } from './utils/createJwt';
+import { createJwt } from '../utils/createJwt';
 
 const signup = async (req: Request, res: Response) => {
   const { email, password } = req.body;
