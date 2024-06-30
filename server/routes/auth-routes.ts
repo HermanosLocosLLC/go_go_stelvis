@@ -1,13 +1,18 @@
 import { Router } from 'express';
-import { login, signup } from '../controllers/auth/vanilla-auth';
-import logout from '../controllers/auth/logout';
-import { googleLogin } from '../controllers/auth/google-auth';
+import {
+  googleLogin,
+  login,
+  signup,
+  confirmSignup,
+  logout,
+} from '../controllers/auth';
 
 const router = Router();
 
 // VANILLA AUTH
-router.post('/gogo/login', login);
 router.post('/gogo/signup', signup);
+router.post('/gogo/confirm', confirmSignup);
+router.post('/gogo/login', login);
 
 // GOOGLE OAUTH2
 router.get('/google/login', googleLogin);
@@ -19,7 +24,7 @@ router.get('/google/login', googleLogin);
 // router.get('/apple/login', appleLogin)
 
 // DISCORD OAUTH2
-// router.get('/apple/login', appleLogin)
+// router.get('/discord/login', appleLogin)
 
 router.post('/logout', logout);
 

@@ -1,4 +1,4 @@
-import { ValidationError } from '../../errors/validation-error';
+import { ValidationError } from '../../../errors';
 
 export const validatePassword = (password?: string) => {
   if (!password || typeof password !== 'string') {

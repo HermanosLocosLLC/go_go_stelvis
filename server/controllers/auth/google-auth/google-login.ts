@@ -1,12 +1,10 @@
-import axios from 'axios';
 import { Request, Response } from 'express';
-import { googleOAuth2Client } from './util/googleOAuth2';
-import { InternalError } from '../../../errors/internal-error';
-import { attachCookie } from '../../../utils/attachCookie';
-import { GoogleUserInfo } from './util/googleUserType';
-import { clientBaseUrl } from '../../../utils/baseUrls';
+import axios from 'axios';
 import pgPool from '../../../db/pgPool';
-import { createJwt } from '../utils/createJwt';
+import { InternalError } from '../../../errors';
+import { GoogleUserInfo, googleOAuth2Client } from './util';
+import { createJwt, attachAuthCookie } from '../utils';
+import { clientBaseUrl } from '../../../config/baseUrls';
 
 export const googleLogin = async (req: Request, res: Response) => {
   const { code, error } = req.query;
@@ -47,7 +45,7 @@ export const googleLogin = async (req: Request, res: Response) => {
     } = await pgPool.query(currentUserQuery, currentUserParams);
     if (currentUser) {
       const jwt = createJwt(currentUser.id);
-      attachCookie(res, jwt);
+      attachAuthCookie(res, jwt);
       res.redirect(clientBaseUrl);
       return;
     }
@@ -62,7 +60,7 @@ export const googleLogin = async (req: Request, res: Response) => {
       rows: [newUser],
     } = await pgPool.query(newUserQuery, newUserParams);
     const jwt = createJwt(newUser.id);
-    attachCookie(res, jwt);
+    attachAuthCookie(res, jwt);
     res.redirect(clientBaseUrl);
     return;
   } catch (err) {

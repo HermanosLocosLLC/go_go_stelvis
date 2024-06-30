@@ -16,7 +16,7 @@ declare module 'express-serve-static-core' {
 // if there is a cookie, we decode jwt and attach the current user id
 export const currentUser = (
   req: Request,
-  res: Response,
+  _res: Response,
   next: NextFunction,
 ) => {
   const { token } = req.cookies;

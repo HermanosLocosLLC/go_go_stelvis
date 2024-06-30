@@ -1,8 +1,14 @@
 import { Request, Response } from 'express';
-import { User } from '../../models/user';
+import pgPool from '../../db/pgPool';
 
 export const getCurrentUser = async (req: Request, res: Response) => {
-  const user = await User.findById(req.currentUser);
+  const currentUserQuery = `
+  SELECT * FROM users WHERE id=$1
+  `;
+  const currentUserParams = [req.currentUser];
+  const {
+    rows: [currentUser],
+  } = await pgPool.query(currentUserQuery, currentUserParams);
 
-  res.status(200).send(user || { message: 'No current user' });
+  res.status(200).send(currentUser || { message: 'No current user' });
 };

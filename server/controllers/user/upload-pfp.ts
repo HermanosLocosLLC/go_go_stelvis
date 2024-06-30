@@ -1,9 +1,11 @@
 import { Request, Response } from 'express';
-import { BadRequestError } from '../../errors/bad-request-error';
-import { s3ImageUpload } from '../../utils/aws/s3ImageUpload';
-import { InternalError } from '../../errors/internal-error';
-import { User } from '../../models/user';
-import { NotAuthorizedError } from '../../errors/not-authorized-error';
+import pgPool from '../../db/pgPool';
+import {
+  BadRequestError,
+  NotAuthorizedError,
+  InternalError,
+} from '../../errors';
+import { s3ImageUpload } from '../../utils';
 
 export const uploadPfp = async (req: Request, res: Response) => {
   const { image } = req.body;
@@ -11,7 +13,13 @@ export const uploadPfp = async (req: Request, res: Response) => {
 
   try {
     const imageUrl = (await s3ImageUpload(image)) as string;
-    const user = await User.findById(req.currentUser);
+    const userQuery = `
+  SELECT * FROM users WHERE id=$1
+  `;
+    const userParams = [req.currentUser];
+    const {
+      rows: [user],
+    } = await pgPool.query(userQuery, userParams);
     if (!user) throw new NotAuthorizedError();
     user.pfp = imageUrl;
     await user.save();
