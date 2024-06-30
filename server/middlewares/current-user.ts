@@ -6,13 +6,16 @@ interface UserPayload extends JwtPayload {
   userId: string;
 }
 
-export interface CurrentUserRequest extends Request {
-  currentUser?: string;
+declare module 'express-serve-static-core' {
+  interface Request {
+    currentUser?: string;
+  }
 }
+
 //middleware to check if there is a cookie
 // if there is a cookie, we decode jwt and attach the current user id
 export const currentUser = (
-  req: CurrentUserRequest,
+  req: Request,
   res: Response,
   next: NextFunction,
 ) => {

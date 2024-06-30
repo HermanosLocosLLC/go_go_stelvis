@@ -6,7 +6,7 @@ import { attachCookie } from '../../../utils/attachCookie';
 import { GoogleUserInfo } from './util/googleUserType';
 import { clientBaseUrl } from '../../../utils/baseUrls';
 import pgPool from '../../../db/pgPool';
-import { createJwt } from '../vanilla-auth/utils/createJwt';
+import { createJwt } from '../utils/createJwt';
 
 export const googleLogin = async (req: Request, res: Response) => {
   const { code, error } = req.query;

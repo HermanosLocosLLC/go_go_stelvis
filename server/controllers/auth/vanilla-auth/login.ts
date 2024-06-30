@@ -5,8 +5,8 @@ import { BadRequestError } from '../../../errors/bad-request-error';
 import { attachCookie } from '../../../utils/attachCookie';
 import { validateEmail } from '../../../utils/requestValidators/validateEmail';
 import pgPool from '../../../db/pgPool';
-import { Password } from './utils/password';
-import { createJwt } from './utils/createJwt';
+import { Password } from '../utils/password';
+import { createJwt } from '../utils/createJwt';
 
 const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
