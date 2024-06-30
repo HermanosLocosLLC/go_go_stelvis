@@ -4,7 +4,7 @@ import { convert } from 'html-to-text';
 import { UserInterface } from '../../db/types/user-type';
 
 enum Templates {
-  SignupConfirmationEmail = 'signup-confirmation',
+  SignupConfirmationEmail = 'signup-confirm',
   WelcomeEmail = 'welcome',
   PasswordResetEmail = 'password-reset',
 }
