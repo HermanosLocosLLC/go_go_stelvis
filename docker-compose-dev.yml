@@ -10,16 +10,19 @@ services:
     environment:
       # General env vars
       - NODE_ENV=development
-      - PORT=3000
+      - PORT=${PORT}
       # Auth env vars
-      - JWT_SECRET=poopityscoopityDERPDEEDOO
-      - JWT_LIFETIME=1d
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_LIFETIME=${JWT_LIFETIME}
+      - JWT_CONFIRM_LIFETIME=${JWT_CONFIRM_LIFETIME}
       # Database env vars
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=gogo-devdb
-      - POSTGRES_PASSWORD=gogo-dev
-      - POSTGRES_HOST=gogo-pg-dev
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_HOST=${POSTGRES_HOST}
       # Development Nodemailer credentials
+      - SMTP_AUTH_USER=${SMTP_AUTH_USER}
+      - SMTP_AUTH_PWD=${SMTP_AUTH_PWD}
       - DEV_EMAIL_USERNAME=${DEV_EMAIL_USERNAME}
       - DEV_EMAIL_PASSWORD=${DEV_EMAIL_PASSWORD}
       - DEV_EMAIL_HOST=${DEV_EMAIL_HOST}
@@ -47,9 +50,9 @@ services:
     ports:
       - '5432:5432'
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=gogo-devdb
-      - POSTGRES_PASSWORD=gogo-dev
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
       - ./scripts/db/postgres/:/docker-entrypoint-initdb.d/
       - postgres-dev-volume:/var/lib/postgresql/data
