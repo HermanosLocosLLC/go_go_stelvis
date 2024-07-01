@@ -6,12 +6,7 @@ import {
   BadRequestError,
   InternalError,
 } from '../../../errors';
-import {
-  Password,
-  validatePassword,
-  // createJwt,
-  // attachCookie
-} from '../utils';
+import { Password, createJwt, validatePassword } from '../utils';
 import { Email, validateEmail } from '../../../utils';
 
 export const signup = async (req: Request, res: Response) => {
@@ -43,7 +38,7 @@ export const signup = async (req: Request, res: Response) => {
   const {
     rows: [existingUser],
   } = await pgPool.query(existingUserQuery, existingUserValues);
-  if (existingUser) {
+  if (existingUser && existingUser.is_active) {
     throw new BadRequestError('User already exists');
   }
 
@@ -60,9 +55,11 @@ export const signup = async (req: Request, res: Response) => {
   } = await pgPool.query(signupQuery, signupValues);
 
   if (!newUser) throw new InternalError();
-  // const jwt = createJwt(newUser.id);
-  // attachCookie(res, jwt);
-  const emailHelper = new Email(newUser, 'https://www.google.com');
+  const confirmationToken = createJwt(newUser.id, false);
+  const url = `${req.protocol}://${req.get(
+    'host',
+  )}/api/v1/auth/gogo/confirm?token=${confirmationToken}`;
+  const emailHelper = new Email(newUser, url);
   await emailHelper.sendSignupConfirmation();
 
   res
