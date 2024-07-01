@@ -1,10 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import jwt, { JwtPayload } from 'jsonwebtoken';
 import { InternalError } from '../errors/internal-error';
-
-interface UserPayload extends JwtPayload {
-  userId: string;
-}
+import { decodeJwt } from '../utils';
 
 declare module 'express-serve-static-core' {
   interface Request {
@@ -23,11 +19,10 @@ export const currentUser = (
 
   if (!token) return next();
 
-  try {
-    const payload = jwt.verify(token, process.env.JWT_SECRET!) as UserPayload;
-    req.currentUser = payload.userId;
-    return next();
-  } catch (err) {
+  const userId = decodeJwt(token);
+  if (!userId) {
     throw new InternalError();
   }
+  req.currentUser = userId;
+  return next();
 };
