@@ -11,7 +11,7 @@ const router = Router();
 
 // VANILLA AUTH
 router.post('/gogo/signup', signup);
-router.post('/gogo/confirm', confirmSignup);
+router.get('/gogo/confirm', confirmSignup);
 router.post('/gogo/login', login);
 
 // GOOGLE OAUTH2
