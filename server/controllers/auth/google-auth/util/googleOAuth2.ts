@@ -1,13 +1,9 @@
 import { google } from 'googleapis';
 
 const GOOGLE_REDIRECT_URL =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:3000/api/v1/auth/google/login'
-    : process.env.NODE_ENV === 'test'
-      ? 'http://localhost:3000/api/v1/auth/google/login'
-      : process.env.NODE_ENV === 'production'
-        ? undefined
-        : undefined;
+  process.env.NODE_ENV === 'production'
+    ? '<production_url>'
+    : 'http://localhost:3000/api/v1/auth/google/login';
 
 if (!process.env.GOOGLE_CLIENT_ID)
   throw new Error('❌ process.env.GOOGLE_CLIENT_ID must be defined!');
