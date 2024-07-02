@@ -1,6 +1,7 @@
 import request from 'supertest';
 import { app } from '../app';
 import pgPool from '../db/pgPool';
+import { Password } from '../controllers/auth/utils';
 
 interface globalLoginInterface {
   cookie: string[] | undefined;
@@ -35,15 +36,19 @@ afterAll(async () => {
 
 global.login = async () => {
   const email = 'test@test.com';
-  const password = 'ilovetesting789!';
+  const password = 'donuts';
+  const hashedPass = Password.hashPassword(password);
+
+  await pgPool.query(`INSERT INTO users (id, email, password, user_type, is_active) VALUESs
+  (100, '${email}', '${hashedPass}' 'gogo', TRUE)`);
 
   const response = await request(app)
-    .post('/api/v1/auth/gogo/signup')
+    .post('/api/v1/auth/gogo/login')
     .send({
       email,
       password,
     })
-    .expect(201);
+    .expect(200);
 
   const cookie = response.get('Set-Cookie');
 
