@@ -14,7 +14,7 @@ CREATE TYPE user_types_enum AS ENUM ('gogo', 'google');
 CREATE TABLE users (
     id SERIAL PRIMARY KEY NOT NULL,
     email VARCHAR(100) NOT NULL,
-    password VARCHAR(255) NOT NULL,
+    password VARCHAR(255),
     first_name VARCHAR(50),
     last_name VARCHAR(50),
     pfp VARCHAR(255),

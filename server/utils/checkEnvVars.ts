@@ -9,7 +9,6 @@ export const checkEnvVars = () => {
     throw Error('❌ POSTGRES_PASSWORD must be defined');
   if (!process.env.POSTGRES_HOST)
     throw Error('❌ POSTGRES_HOST must be defined');
-  // if (!process.env.MONGO_URI) throw Error('❌ MONGO_URI must be defined');
   if (!process.env.GOOGLE_CLIENT_ID)
     throw Error('❌ GOOGLE_CLIENT_ID must be defined');
   if (!process.env.GOOGLE_CLIENT_SECRET)
@@ -20,4 +19,21 @@ export const checkEnvVars = () => {
     throw Error('❌ AWS_ACCESS_KEY must be defined');
   if (!process.env.AWS_SECRET_ACCESS_KEY)
     throw Error('❌ AWS_SECRET_ACCESS_KEY must be defined');
+
+  if (process.env.NODE_ENV === 'development') {
+    if (!process.env.DEV_EMAIL_USERNAME)
+      throw Error('❌ DEV_EMAIL_USERNAME must be defined');
+    if (!process.env.DEV_EMAIL_PASSWORD)
+      throw Error('❌ DEV_EMAIL_PASSWORD must be defined');
+    if (!process.env.DEV_EMAIL_HOST)
+      throw Error('❌ DEV_EMAIL_HOST must be defined');
+    if (!process.env.DEV_EMAIL_PORT)
+      throw Error('❌ DEV_EMAIL_PORT must be defined');
+  }
+  if (process.env.NODE_ENV === 'production') {
+    if (!process.env.SMTP_AUTH_USER)
+      throw Error('❌ SMTP_AUTH_USER must be defined');
+    if (!process.env.SMTP_AUTH_PWD)
+      throw Error('❌ SMTP_AUTH_PWD must be defined');
+  }
 };

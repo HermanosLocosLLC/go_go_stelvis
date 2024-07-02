@@ -1,14 +1,14 @@
 import { Request, Response } from 'express';
-import { RequestValidationError } from '../../../errors/request-validation-error';
-import { ValidationError } from '../../../errors/validation-error';
-import { BadRequestError } from '../../../errors/bad-request-error';
-import { attachCookie } from '../../../utils/attachCookie';
-import { validateEmail } from '../../../utils/requestValidators/validateEmail';
 import pgPool from '../../../db/pgPool';
-import { Password } from '../utils/password';
-import { createJwt } from '../utils/createJwt';
+import {
+  ValidationError,
+  RequestValidationError,
+  BadRequestError,
+} from '../../../errors';
+import { createJwt, attachAuthCookie, Password } from '../utils';
+import { validateEmail } from '../../../utils';
 
-const login = async (req: Request, res: Response) => {
+export const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   // INPUT VALIDATION
@@ -48,9 +48,7 @@ const login = async (req: Request, res: Response) => {
   if (!passwordsMatch) throw new BadRequestError('Invalid credentials');
 
   const jwt = createJwt(user.id);
-  attachCookie(res, jwt);
+  attachAuthCookie(res, jwt);
 
   res.status(200).send(user);
 };
-
-export default login;

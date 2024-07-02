@@ -7,8 +7,14 @@ services:
     ports:
       - 3000:3000
     environment:
-      - JWT_SECRET=poopityscoopityDERPDEEDOO
+      - NODE_ENV=development
+      - JWT_SECRET=testJwtSecret
       - JWT_LIFETIME=1d
+      - JWT_CONFIRM_LIFETIME=1d
+      - DEV_EMAIL_USERNAME=${DEV_EMAIL_USERNAME}
+      - DEV_EMAIL_PASSWORD=${DEV_EMAIL_PASSWORD}
+      - DEV_EMAIL_HOST=${DEV_EMAIL_HOST}
+      - DEV_EMAIL_PORT=${DEV_EMAIL_PORT}
       - POSTGRES_USER=postgres
       - POSTGRES_DB=gogo-testdb
       - POSTGRES_PASSWORD=gogo-test

@@ -1,8 +1,6 @@
 import express from 'express';
-import { currentUser } from '../middlewares/current-user';
-import { requireAuth } from '../middlewares/require-auth';
-import { getCurrentUser } from '../controllers/user/get-current-user';
-import { uploadPfp } from '../controllers/user/upload-pfp';
+import { currentUser, requireAuth } from '../middlewares';
+import { uploadPfp, getCurrentUser } from '../controllers/user';
 
 const router = express.Router();
 

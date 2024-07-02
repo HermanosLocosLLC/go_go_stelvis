@@ -1,15 +1,15 @@
 import { Request, Response } from 'express';
-import { ValidationError } from '../../../errors/validation-error';
-import { RequestValidationError } from '../../../errors/request-validation-error';
-import { BadRequestError } from '../../../errors/bad-request-error';
-import { attachCookie } from '../../../utils/attachCookie';
-import { validateEmail } from '../../../utils/requestValidators/validateEmail';
-import { validatePassword } from '../../../utils/requestValidators/validatePassword';
-import { Password } from '../utils/password';
 import pgPool from '../../../db/pgPool';
-import { createJwt } from '../utils/createJwt';
+import {
+  ValidationError,
+  RequestValidationError,
+  BadRequestError,
+  InternalError,
+} from '../../../errors';
+import { Password, createJwt, validatePassword } from '../utils';
+import { Email, validateEmail } from '../../../utils';
 
-const signup = async (req: Request, res: Response) => {
+export const signup = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   // INPUT VALIDATION
@@ -38,32 +38,31 @@ const signup = async (req: Request, res: Response) => {
   const {
     rows: [existingUser],
   } = await pgPool.query(existingUserQuery, existingUserValues);
-  if (existingUser) {
+  if (existingUser && existingUser.is_active) {
     throw new BadRequestError('User already exists');
   }
 
   // SIGN UP NEW USER
   const hashedPass = await Password.hashPassword(password);
   const signupQuery = `
-    INSERT INTO users (email, password, user_type)
-    VALUES($1, $2, $3)
+    INSERT INTO users (email, password, user_type, is_active)
+    VALUES($1, $2, $3, $4)
     RETURNING id, email, user_type;
   `;
-  const signupValues = [email, hashedPass, 'gogo'];
+  const signupValues = [email, hashedPass, 'gogo', 'FALSE'];
   const {
     rows: [newUser],
   } = await pgPool.query(signupQuery, signupValues);
-  // const newUser = User.build({
-  //   email,
-  //   password,
-  //   userType: 'gogo',
-  // });
-  // await newUser.save();
 
-  const jwt = createJwt(newUser.id);
-  attachCookie(res, jwt);
+  if (!newUser) throw new InternalError();
+  const confirmationToken = createJwt(newUser.id, false);
+  const url = `${req.protocol}://${req.get(
+    'host',
+  )}/api/v1/auth/gogo/confirm?token=${confirmationToken}`;
+  const emailHelper = new Email(newUser, url);
+  await emailHelper.sendSignupConfirmation();
 
-  res.status(201).send(newUser);
+  res
+    .status(201)
+    .send({ message: "Thank you for signing up! Please confirm you're email" });
 };
-
-export default signup;

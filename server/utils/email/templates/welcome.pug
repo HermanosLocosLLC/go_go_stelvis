@@ -1,0 +1,18 @@
+extends base-email
+
+block content
+  p Hello #{firstName},
+  p Welcome to the GoGo Travel Club!
+  p Are you ready to itinerize the world?
+  table.btn.btn-primary(role='presentation', border='0', cellpadding='0', cellspacing='0')
+    tbody
+      tr
+        td(align='left')
+          table(role='presentation', border='0', cellpadding='0', cellspacing='0')
+            tbody
+              tr
+                p Our mascots Los Hermanos Locos think so!
+                td
+                  a(href=`${url}`, target='_blank') Let's GoGo!
+  p "It seems that the more places I see and experience, the bigger I realize the world to be. The more I become aware of, the more I realize how relatively little I know of it, how many places I have still to go, how much more there is to learn."
+  p - Anthony Bourdain

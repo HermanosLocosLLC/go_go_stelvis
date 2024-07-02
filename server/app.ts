@@ -1,11 +1,11 @@
 import path from 'path';
 import express from 'express';
 import 'express-async-errors';
+import cookieParser from 'cookie-parser';
 // import cors from 'cors';
 import apiRouter from './routes';
-import { errorHandler } from './middlewares/error-handler';
-import { NotFoundError } from './errors/not-found-error';
-import cookieParser from 'cookie-parser';
+import { errorHandler } from './middlewares';
+import { NotFoundError } from './errors';
 // import { clientBaseUrl } from './utils/baseUrls';
 
 const app = express();

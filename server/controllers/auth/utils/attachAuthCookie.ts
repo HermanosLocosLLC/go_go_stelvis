@@ -1,6 +1,6 @@
 import { Response } from 'express';
 
-export const attachCookie = (res: Response, jwt: string) => {
+export const attachAuthCookie = (res: Response, jwt: string) => {
   res.cookie('token', jwt, {
     httpOnly: true,
     secure: false,

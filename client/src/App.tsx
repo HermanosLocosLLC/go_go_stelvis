@@ -12,6 +12,7 @@ import Header from './components/Header/Header';
 import SideNavbar from './components/SideNavbar/SideNavbar';
 import { useAppDispatch, useAppSelector } from './hooks/useRedux';
 import { nanoid } from '@reduxjs/toolkit';
+import ConfirmationExpired from './pages/ConfirmationExpired/ConfirmationExpired';
 
 function App() {
   const {
@@ -48,6 +49,7 @@ function App() {
         </Route>
         <Route path='/landing' element={<LandingPage />} />
         <Route path='/login' element={<LoginPage />} />
+        <Route path='/confirmation-expired' element={<ConfirmationExpired />} />
       </Routes>
     </>
   );

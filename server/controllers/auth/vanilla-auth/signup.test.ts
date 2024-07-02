@@ -1,10 +1,19 @@
 import request from 'supertest';
 import { app } from '../../../app';
 import pgPool from '../../../db/pgPool';
+import { Email } from '../../../utils/email/email';
+
+const sendSignupConfirmationMock = jest
+  .spyOn(Email.prototype, 'sendSignupConfirmation')
+  .mockImplementation(async () => undefined)
+  .mockName('MOCK Email.sendSignupConfirmation');
 
 const signupUrl = '/api/v1/auth/gogo/signup';
 
 describe('🧪 Vanilla-Signup Unit Tests 🧪', () => {
+  beforeEach(() => {
+    sendSignupConfirmationMock.mockClear();
+  });
   it('throws an error for invalid emails', async () => {
     const { status: status1 } = await request(app)
       .post(signupUrl)
@@ -55,7 +64,7 @@ describe('🧪 Vanilla-Signup Unit Tests 🧪', () => {
     expect(response.body.length).toEqual(2);
   });
 
-  it('Successfully signs up user and sets cookie', async () => {
+  it('Successfully creates user and sends signup confirmation email', async () => {
     const email = 'test@test.com';
 
     const response = await request(app).post(signupUrl).send({
@@ -65,13 +74,13 @@ describe('🧪 Vanilla-Signup Unit Tests 🧪', () => {
 
     expect(response.status).toEqual(201);
 
-    console.log('💥 pgPool', pgPool);
     const query = `SELECT * FROM users WHERE email=$1;`;
-    const { rows } = await pgPool.query(query, [email]);
-    expect(rows[0]).toBeDefined();
-    expect(rows[0].email).toEqual(email);
+    const {
+      rows: [newUser],
+    } = await pgPool.query(query, [email]);
+    expect(newUser).toBeDefined();
+    expect(newUser.email).toEqual(email);
 
-    expect(response.get('Set-Cookie')).toBeDefined();
-    expect(response.get('Set-Cookie')![0].split('=')[0]).toEqual('token');
+    expect(sendSignupConfirmationMock).toHaveBeenCalledTimes(1);
   });
 });
