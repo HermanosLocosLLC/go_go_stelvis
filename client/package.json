@@ -6,9 +6,9 @@
   "scripts": {
     "dev": "NODE_ENV=development vite",
     "build": "tsc && vite build",
-    "test": "NODE_ENV=test jest --verbose --colors",
-    "test:silent": "NODE_ENV=test jest --colors --detectOpenHandles  --silent",
-    "test-mem": "NODE_ENV=test node --expose-gc ./node_modules/.bin/jest -w=1 --logHeapUsage --verbose --colors"
+    "test": "jest --verbose --colors",
+    "test:silent": "jest --colors --detectOpenHandles  --silent",
+    "test-mem": "node --expose-gc ./node_modules/.bin/jest -w=1 --logHeapUsage --verbose --colors"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.3",
