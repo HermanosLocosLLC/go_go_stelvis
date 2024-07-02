@@ -5,12 +5,15 @@ import { Email } from '../../../utils/email/email';
 
 const sendSignupConfirmationMock = jest
   .spyOn(Email.prototype, 'sendSignupConfirmation')
-  .mockImplementation(async () => {})
+  .mockImplementation(async () => undefined)
   .mockName('MOCK Email.sendSignupConfirmation');
 
 const signupUrl = '/api/v1/auth/gogo/signup';
 
 describe('🧪 Vanilla-Signup Unit Tests 🧪', () => {
+  beforeEach(() => {
+    sendSignupConfirmationMock.mockClear();
+  });
   it('throws an error for invalid emails', async () => {
     const { status: status1 } = await request(app)
       .post(signupUrl)
